@@ -1,4 +1,4 @@
-# Adex — Phase 3
+# Adex — Phase 4
 
 A personal Shopify portfolio built with Next.js App Router, TypeScript, Tailwind CSS, Inter and the official Remix Icon package. No deployment or server-side form delivery is configured. Direct WhatsApp, email and Instagram contact links are active.
 
@@ -35,7 +35,7 @@ npm start
 
 ## Phase boundary
 
-Phase 3 adds a browser-only enquiry composer, copy feedback and manual fallback, a mobile contact action, FAQs and refined service/process copy. It excludes server-side enquiry delivery, verified testimonials, payments, analytics and deployment. The approved Inter/green personal design is retained.
+Phase 4 adds a rounded personal portrait, photo favicon assets, a social preview, publication-gated reviews, SEO and launch documentation. The Phase 3 enquiry composer, copy fallback, mobile contact action and FAQs are retained. It excludes server-side enquiry delivery, verified testimonials, payments, analytics and deployment. The approved Inter/green personal design is retained.
 
 The project can be imported into Vercel later using its standard Next.js configuration. Google Fonts are fetched at build time by `next/font`; the build environment needs access to Google Fonts. Metadata uses `https://adex.com.ng`, which does not configure DNS or deploy the site.
 
@@ -50,3 +50,29 @@ Inter is loaded with `next/font/google`. White is the main background, deep gree
 ## Enquiry behaviour
 
 Limits: name 100, email 254, optional store URL 2,048 and description 2,000 characters. Store URLs default to HTTPS; only HTTP/HTTPS without credentials are accepted. Service choices live in the central config. External app launch does not confirm delivery. Clipboard access requires browser permission and a secure context; failure reveals a selectable enquiry and direct email alternative. Long mailto messages depend on the visitor’s email app; copy is available as an alternative.
+
+## Phase 4 launch handoff
+
+No deployment, Vercel connection or DNS changes have been made. Import `eluthmaaniy/adexng` from GitHub into Vercel when ready.
+
+| Setting | Value |
+| --- | --- |
+| Framework preset | Next.js |
+| Root directory | Repository root (`.`); do not enter `adexng` inside this repository |
+| Package manager | npm; committed `package-lock.json` |
+| Install command | `npm ci` |
+| Build command | `npm run build` |
+| Output directory | Leave the Next.js preset default; do not set `out` |
+| Node.js | 24.x (used locally) |
+| Environment variables | No application secrets or required user-configured variables |
+| Production branch | `main` |
+
+Google Fonts must be accessible during build for `next/font/google`. `VERCEL_ENV` is supplied automatically by Vercel. Preview/development Vercel builds use noindex/nofollow metadata and headers, and disallow crawling in robots.txt. Production builds allow crawling and use `https://adex.com.ng` canonicals. For a non-Vercel temporary preview, set `VERCEL_ENV=preview` **before building**, and verify the resulting robots metadata/header; don't reuse a production-built artifact for that preview. Deploy preview protection can provide another layer. Do not put a global noindex rule on the production domain.
+
+After importing, add `adex.com.ng` under Project Settings → Domains. Add `www.adex.com.ng` as a redirect to `https://adex.com.ng` to match this project's canonical origin. Follow the exact A/CNAME and any verification records shown by Vercel at that time; do not guess DNS values or remove unrelated mail records. Confirm HTTPS and the www redirect once DNS propagates. Official reference: https://vercel.com/docs/domains/working-with-domains/add-a-domain
+
+Post-deployment checks: homepage/work/four project routes; legacy Faith Forged Designs 308 redirect; mobile menu/FAQ/contact bar; enquiry validation and decoded WhatsApp/email message (do not send test enquiries); clipboard fallback; photo favicon and Apple icon; 1200×630 share image, page metadata, sitemap and production robots. Check a real phone with its software keyboard and 200% browser zoom. Refresh social caches if an older preview remains.
+
+No approved testimonials exist yet. See `docs/reviews.md`; do not publish examples. `/reviews` stays 404 until genuine approved content exists. Tests: `node scripts/check-enquiry.mjs` and `node scripts/check-reviews.mjs`.
+
+Local brand assets are committed, so no Python/font tools are required for deployment. To regenerate them separately, use Pillow and an Inter Latin TTF with `python scripts/generate-brand-assets.py /path/to/Inter-Latin.ttf`. The exact source photo and originals are retained. Only the hero portrait is preloaded on the homepage; screenshots use Next Image's lazy loading and explicit dimensions. The supplied cover artwork is retained locally but is not displayed: its dashboard/earnings graphics conflict with the Phase 4 personal direction and verified-content requirements.

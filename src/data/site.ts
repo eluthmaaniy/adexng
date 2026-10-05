@@ -15,13 +15,29 @@ export type Project = {
 };
 const whatsappBaseUrl = 'https://wa.me/2349071740352';
 const whatsappMessage = 'Hi Adex, I’d like to discuss my Shopify store.';
-export type Testimonial = { quote: string; name: string; role?: string; sourceUrl: string; verified: true };
+export type Testimonial = {
+  id: string;
+  clientDisplayName: string;
+  reviewText: string;
+  rating: number;
+  storeName?: string;
+  storeNameVerified?: boolean;
+  genuineClientFeedback: boolean;
+  approvedForPublication: boolean;
+};
+// Add only owner-supplied, genuine and publication-approved client feedback.
+export const testimonials: Testimonial[] = [];
+export function getPublishedReviews(reviews: Testimonial[]) { return reviews.filter(review => review.genuineClientFeedback && review.approvedForPublication && review.clientDisplayName.trim() && review.reviewText.trim() && Number.isFinite(review.rating) && review.rating >= 0 && review.rating <= 5); }
+export const publishedReviews = getPublishedReviews(testimonials);
+
 export type SocialLink = { label: string; url: string; icon: string };
 export const site = {
   name: 'Adex',
   url: 'https://adex.com.ng',
+  profileSourceUrl: 'https://res.cloudinary.com/dr83qj6bf/image/upload/v1791189662/IMG-20261002-WA0017_ttgekv.jpg',
+  socialPreview: { src: '/images/adex-social-preview.png', alt: 'Adex — Shopify Store Expert', width: 1200, height: 630 } satisfies ImageAsset,
   identity: { whatsappNumber: '+2349071740352', whatsappBaseUrl, whatsappMessage, whatsappUrl: `${whatsappBaseUrl}?text=${encodeURIComponent(whatsappMessage)}`, instagramHandle: '@adex7.77', instagramUrl: 'https://www.instagram.com/adex7.77/', email: 'adexexpert007@gmail.com', emailUrl: 'mailto:adexexpert007@gmail.com' },
-  navigation: [{ label: 'Work', href: '/work' }, { label: 'Services', href: '/#services' }, { label: 'About', href: '/#about' }, { label: 'Contact', href: '/#contact' }],
+  navigation: [{ label: 'Work', href: '/work' }, { label: 'Services', href: '/#services' }, { label: 'About', href: '/#about' }, { label: 'Contact', href: '/#contact' }, ...(publishedReviews.length ? [{ label: 'Reviews', href: '/reviews' }] : [])],
   hero: {
     eyebrow: 'Adex · Shopify store expert',
     title: 'A Shopify store you’re proud to send customers to.',
@@ -29,7 +45,7 @@ export const site = {
     primary: 'Tell me about your store', secondary: 'Explore my work',
   },
   ui: { talk: 'Let’s talk', nextStep: 'Your next step', aboutLink: 'Let’s talk about your store', viewProject: 'View project', placeholders: { name: 'Your name', email: 'you@example.com', store: 'your-store.com', description: 'Share your goals, what needs attention and any relevant examples.' } },
-  portrait: { src: '/images/adex-profile.webp', alt: 'Portrait of Adex wearing a dark suit and tie', width: 1024, height: 1024 } satisfies ImageAsset,
+  portrait: { src: '/images/adex-profile.webp', alt: 'Portrait of Adex wearing a dark suit and tie', width: 800, height: 800 } satisfies ImageAsset,
   banner: { src: '/images/adex-cover.webp', alt: 'Adex’s Shopify specialist banner with his portrait and illustrative store dashboard artwork', width: 1280, height: 720, caption: 'Illustrative brand artwork. Figures shown are not verified project results.' },
   work: { eyebrow: 'Selected work', title: 'A closer look at the work.', description: 'Explore a few stores from my portfolio, from home essentials to wellness and car accessories.', allTitle: 'Stores from my portfolio.', allDescription: 'Explore the storefronts in my portfolio and find links to other past work.', allLink: 'View all work', featuresTitle: 'Inside the storefront', enquiryTitle: 'Have a similar project in mind?', enquiryDescription: 'Tell me about your store and what you’d like to build or improve.', visitLabel: 'Visit live store' },
   otherPastWork: [{ name: 'Faith Forged Designs', slug: 'faith-forged-designs', url: 'https://faithforgeddesigns.com/' }],
@@ -82,5 +98,5 @@ export const site = {
   ] },
   footer: { specialism: 'Shopify stores, built with care.' },
   socials: [{ label: 'Email', url: 'mailto:adexexpert007@gmail.com', icon: 'ri-mail-line' }, { label: 'Instagram', url: 'https://www.instagram.com/adex7.77/', icon: 'ri-instagram-line' }] satisfies SocialLink[],
-  testimonials: [] as Testimonial[],
+  testimonials,
 };
