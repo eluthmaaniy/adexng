@@ -70,5 +70,71 @@
     "genuineClientFeedback": true,
     "approvedForPublication": false,
     "publicationStatus": "pending-attribution"
+  },
+  {
+    "id": "samuel-neumann",
+    "clientDisplayName": "Samuel Neumann",
+    "country": "Denmark",
+    "countryConfirmed": true,
+    "date": "2026-04-02",
+    "reviewText": "Adex redesigned my Shopify store and the conversion rate doubled within a month. Worth every dollar.",
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "genuineClientFeedback": true,
+    "approvedForPublication": false,
+    "publicationStatus": "pending-attribution",
+    "service": "Site performance and speed",
+    "serviceConfirmed": false
+  },
+  {
+    "id": "edward-harrington",
+    "clientDisplayName": "Edward Harrington",
+    "country": "Belgium",
+    "countryConfirmed": true,
+    "date": "2026-03-30",
+    "reviewText": "Adex redesigned my Shopify store and the conversion rate doubled within a month. Worth every dollar.",
+    "categoryRatings": {
+      "qualityOfWork": 4,
+      "communication": 4
+    },
+    "genuineClientFeedback": true,
+    "approvedForPublication": false,
+    "publicationStatus": "pending-attribution",
+    "service": "Product listing optimization",
+    "serviceConfirmed": false
+  },
+  {
+    "id": "paula-wagner",
+    "clientDisplayName": "Paula Wagner",
+    "country": "Italy",
+    "countryConfirmed": true,
+    "date": "2026-03-18",
+    "reviewText": "Adex rebuilt my entire Shopify theme from scratch. Mobile speed went from awful to lightning fast. So happy with the result.",
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "genuineClientFeedback": true,
+    "approvedForPublication": false,
+    "publicationStatus": "pending-attribution"
+  },
+  {
+    "id": "alva-russell",
+    "clientDisplayName": "Alva Russell",
+    "country": "Canada",
+    "countryConfirmed": true,
+    "date": "2026-02-08",
+    "reviewText": "Adex built my beauty store and helped me set up email flows. Sales started coming in days after launch. Worth every penny.",
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "genuineClientFeedback": true,
+    "approvedForPublication": false,
+    "publicationStatus": "pending-attribution",
+    "service": "POS setup and migration",
+    "serviceConfirmed": false
   }
 ]

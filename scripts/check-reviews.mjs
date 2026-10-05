@@ -15,18 +15,18 @@ const { Testimonials } = load('src/components/testimonials.tsx', { './icon': { I
 const { renderToStaticMarkup } = nodeRequire('react-dom/server');
 // Synthetic fixtures for tests only. Never added to published site content.
 const fixture = { id: 'test', clientDisplayName: 'Test fixture', reviewText: 'Test-only feedback & characters.', rating: 3.5, genuineClientFeedback: true, approvedForPublication: true, storeName: 'Unconfirmed test store' };
-assert.equal(data.publishedReviews.length, 8);
+assert.equal(data.publishedReviews.length, 17);
 assert.equal(data.publishedReviews.filter(r => r.clientDisplayName === 'Greta Fernández').length, 1);
 const pending = JSON.parse(fs.readFileSync('docs/review-attribution-pending.json','utf8'));
-assert.equal(pending.length,4);
+assert.equal(pending.length,8);
 assert.equal(data.getPublishedReviews(pending).length,0);
 assert.ok(pending.every(r => !r.reviewText.includes('Sum'+'ar') && r.reviewText.includes('Adex')));
 assert.equal(data.profile.aggregateRating.status,'pending');
 assert.equal(data.profile.aggregateRating.value,null);
 const publicHtml = renderToStaticMarkup(Testimonials({ reviews: data.publishedReviews }));
-assert.equal((publicHtml.match(/class="review"/g)||[]).length,8);
-assert.equal((publicHtml.match(/Quality of work:/g)||[]).length,8);
-assert.equal((publicHtml.match(/Communication:/g)||[]).length,8);
+assert.equal((publicHtml.match(/class="review"/g)||[]).length,17);
+assert.equal((publicHtml.match(/Quality of work:/g)||[]).length,17);
+assert.equal((publicHtml.match(/Communication:/g)||[]).length,17);
 assert.ok(publicHtml.includes('Quality of work: 4 out of 5 stars'));
 assert.ok(publicHtml.includes('dateTime="2026-04-16"') || publicHtml.includes('datetime="2026-04-16"'));
 for(const review of pending) assert.ok(!publicHtml.includes(review.clientDisplayName));
@@ -54,7 +54,7 @@ assert.ok(renderToStaticMarkup(Testimonials({ reviews: [{ ...fixture, storeNameV
 console.log('PASS review publication gating, 30-review capacity, actual ratings, accessible labels and verified store names');
 const React = nodeRequire('react');
 const reviewsModule = load('src/app/reviews/page.tsx', {
-  '@/data/site': { publishedReviews: thirty },
+  '@/data/site': { publishedReviews: thirty, getReviewsByDate: data.getReviewsByDate },
   '@/lib/metadata': { pageMetadata: (title, description, path) => ({ title, description, path }) },
   '@/components/profile': { Profile: () => null },
   '@/components/header': { Header: () => null },
@@ -99,4 +99,15 @@ assert.equal(data.getPublishedReviews([categoryFixture]).length,1);
 assert.equal(data.getPublishedReviews([{...categoryFixture,categoryRatings:{qualityOfWork:6,communication:5}}]).length,0);
 assert.equal(data.getPublishedReviews([{...categoryFixture,publicationStatus:'pending-attribution'}]).length,0);
 assert.equal(data.getPublishedReviews([fixture,fixture]).length,1);
-console.log('PASS eight supplied records, four internal pending records, category ratings, deduplication and confirmed profile facts');
+console.log('PASS supplied records and internal pending records, category ratings, deduplication and confirmed profile facts');
+
+const duplicate = {...data.publishedReviews.find(r=>r.clientDisplayName==='Henry Müller'),id:'henry-duplicate'};
+assert.equal(data.getPublishedReviews([...data.testimonials,duplicate,...pending]).length,17);
+assert.equal(new Set([...data.testimonials,...pending].map(r=>r.id)).size,25);
+assert.deepEqual(data.publishedReviews.slice(0,8).map(r=>r.clientDisplayName),['Greta Fernández','Henry Müller','Sienna Berg','Noah Rossi','Paolo Reed','Finn Jensen','Phoebe Fischer','Ida Murphy']);
+const sorted=data.getReviewsByDate(data.publishedReviews);
+assert.equal(sorted[0].clientDisplayName,'Noah Rossi');
+assert.ok(sorted.every((r,i)=>!i || (sorted[i-1].date||'') >= (r.date||'')));
+assert.deepEqual(data.getReviewsByDate([{...fixture,id:'b',date:'2026-01-01'},{...fixture,id:'a',date:'2026-01-01'}]).map(r=>r.id),['a','b']);
+assert.equal(data.testimonials.find(r=>r.clientDisplayName==='Ivy García').serviceConfirmed,false);
+console.log('PASS 17 published / 8 pending records, identity-date-quote deduplication, unchanged home selection and stable date ordering');

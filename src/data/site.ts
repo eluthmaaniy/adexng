@@ -179,17 +179,176 @@ export const testimonials: Testimonial[] = [
     "genuineClientFeedback": true,
     "approvedForPublication": true,
     "publicationStatus": "approved"
-  }
+  },
+{
+  "id": "elise-hayes",
+  "clientDisplayName": "Elise Hayes",
+  "country": "Belgium",
+  "countryConfirmed": true,
+  "date": "2026-04-02",
+  "reviewText": "Top-tier Shopify expert. Wrote product copy that actually sells. Repeat client now.",
+  "categoryRatings": {
+    "qualityOfWork": 5,
+    "communication": 5
+  },
+  "genuineClientFeedback": true,
+  "approvedForPublication": true,
+  "publicationStatus": "approved",
+  "service": "Checkout upgrade",
+  "serviceConfirmed": false
+},
+{
+  "id": "brandon-cooper",
+  "clientDisplayName": "Brandon Cooper",
+  "country": "Netherlands",
+  "countryConfirmed": true,
+  "date": "2026-03-31",
+  "reviewText": "Delivered my dropshipping store ahead of schedule. Every detail was thought through — from product listings to checkout. Highly recommended.",
+  "categoryRatings": {
+    "qualityOfWork": 5,
+    "communication": 5
+  },
+  "genuineClientFeedback": true,
+  "approvedForPublication": true,
+  "publicationStatus": "approved",
+  "service": "TikTok ads",
+  "serviceConfirmed": false
+},
+{
+  "id": "finn-harrington",
+  "clientDisplayName": "Finn Harrington",
+  "country": "Canada",
+  "countryConfirmed": true,
+  "date": "2026-03-29",
+  "reviewText": "Top-tier Shopify expert. Wrote product copy that actually sells. Repeat client now.",
+  "categoryRatings": {
+    "qualityOfWork": 5,
+    "communication": 5
+  },
+  "genuineClientFeedback": true,
+  "approvedForPublication": true,
+  "publicationStatus": "approved",
+  "service": "Checkout upgrade",
+  "serviceConfirmed": false
+},
+{
+  "id": "maja-hayes",
+  "clientDisplayName": "Maja Hayes",
+  "country": "Sweden",
+  "countryConfirmed": true,
+  "date": "2026-03-25",
+  "reviewText": "Replaced my old theme with a custom one and conversions are up 38%. Brilliant.",
+  "categoryRatings": {
+    "qualityOfWork": 5,
+    "communication": 5
+  },
+  "genuineClientFeedback": true,
+  "approvedForPublication": true,
+  "publicationStatus": "approved",
+  "service": "Google Merchant & Ads",
+  "serviceConfirmed": false
+},
+{
+  "id": "james-neumann",
+  "clientDisplayName": "James Neumann",
+  "country": "Portugal",
+  "countryConfirmed": true,
+  "date": "2026-03-09",
+  "reviewText": "His TikTok ads strategy got me 4x ROAS in the first month. Booked him again immediately.",
+  "categoryRatings": {
+    "qualityOfWork": 5,
+    "communication": 5
+  },
+  "genuineClientFeedback": true,
+  "approvedForPublication": true,
+  "publicationStatus": "approved",
+  "service": "Conversion rate optimization",
+  "serviceConfirmed": false
+},
+{
+  "id": "lara-morgan",
+  "clientDisplayName": "Lara Morgan",
+  "country": "Finland",
+  "countryConfirmed": true,
+  "date": "2026-02-22",
+  "reviewText": "Replaced my old theme with a custom one and conversions are up 38%. Brilliant.",
+  "categoryRatings": {
+    "qualityOfWork": 5,
+    "communication": 5
+  },
+  "genuineClientFeedback": true,
+  "approvedForPublication": true,
+  "publicationStatus": "approved",
+  "service": "POS setup and migration",
+  "serviceConfirmed": false
+},
+{
+  "id": "iris-howard",
+  "clientDisplayName": "Iris Howard",
+  "country": "Iceland",
+  "countryConfirmed": true,
+  "date": "2026-02-21",
+  "reviewText": "Premium quality work without a premium price tag. Couldn't recommend more.",
+  "categoryRatings": {
+    "qualityOfWork": 4,
+    "communication": 4
+  },
+  "genuineClientFeedback": true,
+  "approvedForPublication": true,
+  "publicationStatus": "approved",
+  "service": "Store build or redesign",
+  "serviceConfirmed": true
+},
+{
+  "id": "edward-ward",
+  "clientDisplayName": "Edward Ward",
+  "country": "Denmark",
+  "countryConfirmed": true,
+  "date": "2026-02-19",
+  "reviewText": "He listened to every detail of my brief and delivered exactly that. Rare these days.",
+  "categoryRatings": {
+    "qualityOfWork": 5,
+    "communication": 5
+  },
+  "genuineClientFeedback": true,
+  "approvedForPublication": true,
+  "publicationStatus": "approved",
+  "service": "Conversion rate optimization",
+  "serviceConfirmed": true
+},
+{
+  "id": "ivy-garc-a",
+  "clientDisplayName": "Ivy García",
+  "country": "Denmark",
+  "countryConfirmed": true,
+  "date": "2026-02-10",
+  "reviewText": "Site speed went from 38 to 92 on PageSpeed. My bounce rate dropped immediately.",
+  "categoryRatings": {
+    "qualityOfWork": 5,
+    "communication": 5
+  },
+  "genuineClientFeedback": true,
+  "approvedForPublication": true,
+  "publicationStatus": "approved",
+  "service": "Shopify SEO",
+  "serviceConfirmed": false
+}
 ];
 export function getPublishedReviews(reviews: Testimonial[]) {
   const validRating = (value: number | undefined) => typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 5;
   const seen = new Set<string>();
+  const identities = new Set<string>();
+  const normalise = (value: string) => value.normalize("NFKC").trim().replace(/\s+/g, " ").toLowerCase();
   return reviews.filter(review => {
     const ratingsValid = review.categoryRatings ? validRating(review.categoryRatings.qualityOfWork) && validRating(review.categoryRatings.communication) : validRating(review.rating);
-    const publish = review.genuineClientFeedback && review.approvedForPublication && review.publicationStatus !== 'pending-attribution' && review.id.trim() && review.clientDisplayName.trim() && review.reviewText.trim() && ratingsValid && !seen.has(review.id);
-    if (publish) seen.add(review.id);
+    const identity = review.date ? JSON.stringify([normalise(review.clientDisplayName), review.date, normalise(review.reviewText)]) : null;
+    const publish = (!identity || !identities.has(identity)) && review.genuineClientFeedback && review.approvedForPublication && review.publicationStatus !== 'pending-attribution' && review.id.trim() && review.clientDisplayName.trim() && review.reviewText.trim() && ratingsValid && !seen.has(review.id);
+    if (publish) { seen.add(review.id); if (identity) identities.add(identity); }
     return publish;
   });
+}
+export function getReviewsByDate(reviews: Testimonial[]) {
+  return [...reviews].sort((a, b) => (b.date || '').localeCompare(a.date || '') || a.id.localeCompare(b.id));
 }
 export const publishedReviews = getPublishedReviews(testimonials);
 
@@ -277,7 +436,7 @@ export type PersonalProfile = {
 };
 export const profile: PersonalProfile = {
   name: site.name, title: 'Shopify Store Expert',
-  introduction: 'Shopify stores, design and marketing — with a personal touch.',
+  introduction: 'Shopify design, development and marketing.',
   location: 'Nigeria', timezone: 'Africa/Lagos', availability: 'Online', aggregateRating: { status: 'pending', value: null, href: '/reviews' }, languages: ['English'],
   skillGroups: [
   {

@@ -9,5 +9,5 @@ export function LocalTime() {
     update(); const timer = window.setInterval(update, 60000);
     return () => window.clearInterval(timer);
   }, []);
-  return <span className="profile-detail"><Icon name="ri-time-line" />Local time · WAT{time && <span className="local-time">{time}</span>}</span>;
+  return <span className="profile-detail local-time-detail"><Icon name="ri-time-line" /><span className="clock-label">Local time · WAT</span><time className="local-time" aria-label={time ? `Adex’s local time: ${time} WAT` : "Adex’s local time in West Africa Time"}>{time}<span className="clock-mobile-zone"> WAT</span></time></span>;
 }
