@@ -5,6 +5,7 @@ export type Project = {
   name: string;
   category: string | null;
   summary: string;
+  shortSummary: string;
   features: string[];
   liveUrl: string;
   screenshot: ImageAsset | null;
@@ -37,7 +38,7 @@ export const site = {
   profileSourceUrl: 'https://res.cloudinary.com/dr83qj6bf/image/upload/v1791189662/IMG-20261002-WA0017_ttgekv.jpg',
   socialPreview: { src: '/images/adex-social-preview.png', alt: 'Adex — Shopify Store Expert', width: 1200, height: 630 } satisfies ImageAsset,
   identity: { whatsappNumber: '+2349071740352', whatsappBaseUrl, whatsappMessage, whatsappUrl: `${whatsappBaseUrl}?text=${encodeURIComponent(whatsappMessage)}`, instagramHandle: '@adex7.77', instagramUrl: 'https://www.instagram.com/adex7.77/', email: 'adexexpert007@gmail.com', emailUrl: 'mailto:adexexpert007@gmail.com' },
-  navigation: [{ label: 'Work', href: '/work' }, { label: 'Services', href: '/#services' }, { label: 'About', href: '/#about' }, { label: 'Contact', href: '/#contact' }, ...(publishedReviews.length ? [{ label: 'Reviews', href: '/reviews' }] : [])],
+  navigation: [{ label: 'Home', href: '/' }, { label: 'About', href: '/about' }, { label: 'Services', href: '/services' }, { label: 'Work', href: '/work' }, { label: 'Reviews', href: '/reviews' }, { label: 'Contact', href: '/contact' }],
   hero: {
     eyebrow: 'Adex · Shopify store expert',
     title: 'A Shopify store you’re proud to send customers to.',
@@ -52,24 +53,28 @@ export const site = {
   projects: [
     {
       id: 'zenrozone', slug: 'zenrozone', name: 'ZenroZone', category: 'Furniture & home essentials', featured: true, liveUrl: 'https://zenrozone.com/',
+      shortSummary: 'Furniture, décor and everyday home essentials, presented through room imagery, collection links and product previews. Detailed specifications help shoppers compare items for their homes.',
       summary: 'ZenroZone brings furniture, décor, lighting and practical home essentials into one catalogue for people furnishing or refreshing their homes. The storefront opens with room imagery and collection links, then introduces furniture, tools and décor in distinct groups. Product previews show prices and quick-view options, while the Dining Chairs page pairs an image gallery with dimensions, material details and shipping information to help shoppers compare the item.',
       features: ['Room-focused homepage imagery and collection links', 'Furniture, tools and décor collection groups', 'Priced product cards with quick-view controls', 'Dining Chairs gallery, specifications and shipping information'],
       screenshot: { src: '/projects/zenrozone-homepage.webp', alt: 'ZenroZone homepage showing furniture imagery and its home essentials introduction', width: 1440, height: 990 }, contribution: null, results: [],
     },
     {
       id: 'accesorioscar', slug: 'accesorioscar', name: 'Accesorioscar', category: 'Car accessories & detailing', featured: true, liveUrl: 'https://accesorioscar.com/',
+      shortSummary: 'Car-care products and motoring accessories for Spanish-speaking shoppers. Category navigation, popular products and collection filters help visitors browse equipment, detailing supplies and interior technology.',
       summary: 'Accesorioscar presents car-care products, interior technology and emergency accessories to Spanish-speaking drivers and motoring enthusiasts. A vehicle-led homepage points shoppers towards bundles and product categories, with popular items shown alongside prices. The detailing collection groups cleaning and polishing equipment in a product grid, with availability and price filters, sorting controls and product imagery. Delivery and returns information is surfaced near the navigation to support browsing decisions.',
       features: ['Spanish-language category navigation', 'Vehicle-led hero with bundle and catalogue links', 'Popular-product cards with visible prices', 'Detailing collection with availability, price and sorting controls'],
       screenshot: { src: '/projects/accesorioscar-homepage.webp', alt: 'Accesorioscar homepage featuring a car and Spanish-language shopping navigation', width: 1440, height: 990 }, contribution: null, results: [],
     },
     {
       id: 'zen-active', slug: 'zen-active', name: 'Zen Active', category: 'Wellness, nutrition & active living', featured: true, liveUrl: 'https://zenactive.store/',
+      shortSummary: 'Nutrition, wellness and active-living products presented through lifestyle photography and clear category links. A filtered catalogue helps shoppers browse supplements and exercise equipment.',
       summary: 'Zen Active presents nutrition, wellness and active-living products for shoppers building an everyday wellness routine. Its homepage uses lifestyle imagery and routes into NeoLife, vitamins and fitness categories, alongside an explanation that the store operates independently. The catalogue brings supplements and exercise equipment into a priced product grid, with availability and price filters, sorting and visible stock status. Search and cart links remain available in the main navigation.',
       features: ['Lifestyle hero and category-led product discovery', 'Separate NeoLife, nutrition and fitness collection links', 'Catalogue filters, sorting and visible stock status', 'Search and cart navigation'],
       screenshot: { src: '/projects/zen-active-homepage.webp', alt: 'Zen Active homepage with wellness messaging, green styling and lifestyle photography', width: 1440, height: 990 }, contribution: null, results: [],
     },
     {
       id: 'flex-rack', slug: 'flex-rack', name: 'Flex Rack', category: 'Kitchen tools & appliances', featured: false, liveUrl: 'https://flexrack.net/',
+      shortSummary: 'Kitchen tools and appliances presented through product slides, collection groups and bundles. Catalogue filters, prices and quick-view controls support comparison across the range.',
       summary: 'Flex Rack focuses on kitchen tools and appliances for people equipping or updating their home kitchens. Large homepage slides introduce everyday cooking products, followed by collection groups and a bundle-shopping section. The catalogue presents appliances such as pressure cookers and air fryers with prices, product options and quick-view controls. Availability and price filters, sorting and grid-density choices give shoppers several ways to narrow and compare the range.',
       features: ['Kitchen-focused homepage slideshow', 'Appliance collection groups and bundle-shopping section', 'Catalogue availability and price filters with sorting', 'Priced product cards, options and quick-view controls'],
       screenshot: { src: '/projects/flex-rack-homepage.webp', alt: 'Flex Rack homepage featuring everyday kitchen appliances and a shop link', width: 1440, height: 990 }, contribution: null, results: [],
@@ -99,4 +104,18 @@ export const site = {
   footer: { specialism: 'Shopify stores, built with care.' },
   socials: [{ label: 'Email', url: 'mailto:adexexpert007@gmail.com', icon: 'ri-mail-line' }, { label: 'Instagram', url: 'https://www.instagram.com/adex7.77/', icon: 'ri-instagram-line' }] satisfies SocialLink[],
   testimonials,
+};
+
+export type Credential = { title: string; institution: string; period?: string; url?: string };
+export type PersonalProfile = {
+  name: string; title: string; introduction: string; location?: string; timezone: string;
+  availability: string; languages: string[]; skills: string[];
+  education: Credential[]; certifications: Credential[]; contact: typeof site.identity;
+};
+export const profile: PersonalProfile = {
+  name: site.name, title: 'Shopify Store Expert',
+  introduction: 'I help store owners build, redesign and improve their Shopify stores. Tell me what you’re working on, and we can discuss the next step.',
+  timezone: 'Africa/Lagos', availability: 'Open to project enquiries', languages: [],
+  skills: ['Shopify store setup', 'Store redesign', 'Theme customisation', 'Product organisation', 'Store navigation', 'Mobile storefront improvements'],
+  education: [], certifications: [], contact: site.identity,
 };

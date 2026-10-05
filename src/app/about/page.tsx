@@ -1,0 +1,6 @@
+import { PageShell } from '@/components/page-shell';
+import { Skills, Credentials, ContactInvitation } from '@/components/profile';
+import { site, profile } from '@/data/site';
+import { pageMetadata } from '@/lib/metadata';
+export const metadata = pageMetadata('About me | Adex', 'Get to know my approach to Shopify store builds, redesigns and improvements.', '/about');
+export default function AboutPage() { return <PageShell><div className="reading-width inner-reading"><header className="page-heading"><h1>About me</h1><p>{profile.introduction}</p></header><section className="profile-content"><h2>The person behind your store.</h2>{site.about.paragraphs.map(text => <p key={text}>{text}</p>)}</section><Skills /><Credentials /><section className="profile-content"><h2>How I approach your store.</h2><p>I focus on how your products are organised, how customers find their way around and how the storefront feels on mobile. I want to understand your goals before deciding which changes make sense.</p><p>Before I begin, we discuss the work and agree on scope and pricing. I explain my decisions clearly and review the agreed work with you before handing it over.</p></section></div><ContactInvitation /></PageShell>; }

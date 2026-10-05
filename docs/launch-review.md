@@ -1,5 +1,7 @@
 # Phase 4 local launch review — 2026-10-05
 
+Historical record: the subsequent personal-profile correction supersedes homepage arrangement, cover visibility, navigation, review empty-state and sitemap counts. See profile-content-checklist.md.
+
 No deployment, Vercel account connection or DNS modification was performed. Existing Next.js/TypeScript/npm stack, Inter and official Remix Icon package are retained. No AGENTS.md instructions were found in the workspace.
 
 ## Content and identity

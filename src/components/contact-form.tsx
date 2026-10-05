@@ -3,8 +3,8 @@ import { useRef, useState, type FormEvent } from 'react';
 import { site } from '@/data/site';
 import { composeEnquiry, validateEnquiry, type Enquiry, type EnquiryErrors } from '@/lib/enquiry';
 import { Icon } from './icon';
-export function ContactForm() {
-  const [values, setValues] = useState<Enquiry>({ name: '', email: '', store: '', service: '', description: '' });
+export function ContactForm({ initialService = "" }: { initialService?: string }) {
+  const [values, setValues] = useState<Enquiry>({ name: '', email: '', store: '', service: site.contact.services.includes(initialService) ? initialService : '', description: '' });
   const [errors, setErrors] = useState<EnquiryErrors>({});
   const [feedback, setFeedback] = useState('');
   const [copyFallback, setCopyFallback] = useState('');

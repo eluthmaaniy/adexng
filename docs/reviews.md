@@ -1,6 +1,6 @@
 # Publishing genuine client reviews
 
-No genuine reviews have been supplied. Nothing is published, the homepage section and Reviews navigation link are hidden, `/reviews` returns 404, and the sitemap excludes it.
+No genuine reviews have been supplied. No review text is published. The homepage section is hidden; the navigation links to a short noindex empty state at `/reviews`, which is excluded from the sitemap.
 
 Add genuine feedback to the typed `testimonials` array in `src/data/site.ts`. Required fields:
 
@@ -14,6 +14,6 @@ Add genuine feedback to the typed `testimonials` array in `src/data/site.ts`. Re
 
 Keep source/permission evidence privately; do not put private client correspondence into the public content bundle. No client portraits are used.
 
-Publishing the first approved review automatically enables the homepage section (maximum three), `/reviews`, the Reviews navigation link and sitemap entry. The review page shows six reviews per page with normal, keyboard-accessible pagination; 30 reviews occupy five pages. Review pages use `/reviews` as their canonical URL. No aggregate-rating structured data is generated.
+Publishing the first approved review automatically enables the homepage section (maximum three), the review listing and sitemap entry. The review page shows six reviews per page with normal, keyboard-accessible pagination; 30 reviews occupy five pages. Review pages use `/reviews` as their canonical URL. No aggregate-rating structured data is generated.
 
 Run `node scripts/check-reviews.mjs` and visually check genuine content at mobile and desktop widths before publishing it. Test fixtures exist only in the test script; they are never site data.

@@ -1,4 +1,4 @@
-# Adex — Phase 4
+# Adex — Personal Shopify portfolio
 
 A personal Shopify portfolio built with Next.js App Router, TypeScript, Tailwind CSS, Inter and the official Remix Icon package. No deployment or server-side form delivery is configured. Direct WhatsApp, email and Instagram contact links are active.
 
@@ -73,6 +73,10 @@ After importing, add `adex.com.ng` under Project Settings → Domains. Add `www.
 
 Post-deployment checks: homepage/work/four project routes; legacy Faith Forged Designs 308 redirect; mobile menu/FAQ/contact bar; enquiry validation and decoded WhatsApp/email message (do not send test enquiries); clipboard fallback; photo favicon and Apple icon; 1200×630 share image, page metadata, sitemap and production robots. Check a real phone with its software keyboard and 200% browser zoom. Refresh social caches if an older preview remains.
 
-No approved testimonials exist yet. See `docs/reviews.md`; do not publish examples. `/reviews` stays 404 until genuine approved content exists. Tests: `node scripts/check-enquiry.mjs` and `node scripts/check-reviews.mjs`.
+No approved testimonials exist yet. See `docs/reviews.md`; do not publish examples. `/reviews` shows a short noindex empty state until genuine approved content exists. Tests: `node scripts/check-enquiry.mjs` and `node scripts/check-reviews.mjs`.
 
-Local brand assets are committed, so no Python/font tools are required for deployment. To regenerate them separately, use Pillow and an Inter Latin TTF with `python scripts/generate-brand-assets.py /path/to/Inter-Latin.ttf`. The exact source photo and originals are retained. Only the hero portrait is preloaded on the homepage; screenshots use Next Image's lazy loading and explicit dimensions. The supplied cover artwork is retained locally but is not displayed: its dashboard/earnings graphics conflict with the Phase 4 personal direction and verified-content requirements.
+Local brand assets are committed, so no Python/font tools are required for deployment. To regenerate them separately, use Pillow and an Inter Latin TTF with `python scripts/generate-brand-assets.py /path/to/Inter-Latin.ttf`. The exact source photo and originals are retained. The homepage cover is preloaded; the portrait loads eagerly without a separate preload. Project screenshots use Next Image lazy loading and explicit dimensions. The supplied cover is displayed intact with a contain treatment; its embedded figures are not used as verified results.
+
+## Personal profile navigation
+
+The homepage is a compact profile. Detailed content lives at `/about`, `/services`, `/work`, `/reviews` and `/contact`. Service links accept a validated `service` query parameter for the enquiry composer. Empty Reviews is a short noindex page linked from navigation and excluded from sitemap; this supersedes the earlier hidden/404 review behaviour. See `docs/profile-content-checklist.md` for missing factual details. Existing Vercel import settings remain unchanged. A main push may trigger the connected automatic deployment; no separate deployment is created.

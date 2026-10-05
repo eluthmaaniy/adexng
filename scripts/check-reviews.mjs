@@ -16,7 +16,7 @@ const { renderToStaticMarkup } = nodeRequire('react-dom/server');
 // Synthetic fixtures for tests only. Never added to published site content.
 const fixture = { id: 'test', clientDisplayName: 'Test fixture', reviewText: 'Test-only feedback & characters.', rating: 3.5, genuineClientFeedback: true, approvedForPublication: true, storeName: 'Unconfirmed test store' };
 assert.equal(data.publishedReviews.length, 0);
-assert.equal(data.site.navigation.some(link => link.href === '/reviews'), false);
+assert.equal(data.site.navigation.some(link => link.href === '/reviews'), true);
 assert.equal(data.getPublishedReviews([{ ...fixture, approvedForPublication: false }]).length, 0);
 assert.equal(data.getPublishedReviews([{ ...fixture, genuineClientFeedback: false }]).length, 0);
 assert.equal(data.getPublishedReviews([{ ...fixture, rating: 6 }]).length, 0);
@@ -37,6 +37,7 @@ const React = nodeRequire('react');
 const reviewsModule = load('src/app/reviews/page.tsx', {
   '@/data/site': { publishedReviews: thirty },
   '@/lib/metadata': { pageMetadata: (title, description, path) => ({ title, description, path }) },
+  '@/components/profile': { Profile: () => null },
   '@/components/header': { Header: () => null },
   '@/components/footer': { Footer: () => null },
   '@/components/testimonials': { Testimonials },

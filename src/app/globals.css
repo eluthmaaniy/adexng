@@ -183,3 +183,89 @@ h3 { font-size:20px; font-weight:600; letter-spacing:-.55px; line-height:1.45; }
 @media(max-width:359px) { .header-inner { gap:8px; } .header-cta { padding-inline:10px; } .hero-actions { gap:8px; } h1 { font-size:34px; } .contact-copy h2 { font-size:30px; } .enquiry-alternatives a { font-size:12px; } }
 .review-star { display:inline-block; position:relative; width:20px; height:24px; }
 .review-star-fill { position:absolute; inset:0 auto 0 0; overflow:hidden; white-space:nowrap; }
+/* Personal profile and dedicated pages. */
+.desktop-nav { gap:25px; }
+nav a[aria-current=page] { color:var(--green); text-decoration:underline; text-underline-offset:7px; text-decoration-thickness:2px; }
+.footer nav a[aria-current=page] { color:white; }
+.profile-section { padding-top:24px; }
+.profile-cover-frame { height:280px; background:#040b0d; border-radius:6px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.profile-cover { height:100%; width:100%; object-fit:contain; }
+.profile-identity { position:relative; text-align:center; padding-bottom:35px; }
+.profile-photo { display:block; width:152px; height:152px; border:5px solid white; border-radius:50%; object-fit:cover; object-position:center 42%; margin:-76px auto 18px; position:relative; }
+.profile-identity h1 { max-width:none; margin:0 0 3px; font-size:34px; letter-spacing:-1px; }
+.profile-title { font-weight:600; margin:0 0 15px; font-size:15px; }
+.profile-introduction { max-width:620px; margin:0 auto 18px; color:var(--muted); }
+.profile-metadata { display:flex; flex-wrap:wrap; gap:8px 25px; justify-content:center; font-size:12px; color:var(--muted); }
+.profile-detail { display:inline-flex; align-items:center; gap:8px; }
+.profile-detail i { color:var(--green); font-size:17px; }
+.local-time { font-variant-numeric:tabular-nums; color:var(--deep-green); }
+.availability-dot { width:7px; height:7px; border-radius:50%; background:var(--green); animation:availability 4s ease-in-out infinite; }
+@keyframes availability { 50% { opacity:.5; } }
+.profile-actions { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px; margin-top:22px; }
+.profile-socials { display:flex; gap:25px; justify-content:center; margin-top:8px; }
+.reading-width { width:min(760px,calc(100% - 48px)); margin-inline:auto; }
+.profile-content { border-top:1px solid var(--border); padding-block:32px; }
+.profile-content h2 { font-size:25px; letter-spacing:-.7px; margin-bottom:18px; display:flex; gap:12px; align-items:center; }
+.profile-content p { color:var(--muted); margin-bottom:16px; }
+.profile-content p:last-child { margin-bottom:0; }
+.skills-list { display:flex; flex-wrap:wrap; gap:10px 25px; list-style:none; margin:0; padding:0; }
+.skills-list li { font-size:13px; border-bottom:1px solid var(--border); padding-block:4px; }
+.credential-list { list-style:none; padding:0; margin:0; }
+.credential-list li + li { margin-top:20px; }
+.credential-list h3 { font-size:17px; margin-bottom:4px; }
+.home-work { padding-block:32px 45px; }
+.home-work h2 { font-size:29px; }
+.home-work .section-intro { margin-bottom:26px; align-items:center; }
+.home-work .project-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px; }
+.home-work .project-heading { margin-top:15px; }
+.contact-invitation { margin-block:20px 55px; padding:28px 32px; border:1px solid var(--border); background:var(--pale-green); border-radius:5px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:22px; }
+.contact-invitation h2 { font-size:26px; }
+.contact-invitation p { color:var(--muted); font-size:14px; margin:10px 0 0; }
+.compact-profile { display:flex; align-items:center; gap:14px; margin-bottom:35px; }
+.compact-profile img { width:64px; height:64px; border-radius:50%; object-fit:cover; }
+.compact-profile a { font-weight:700; font-size:20px; }
+.compact-profile p { margin:0; font-size:12px; color:var(--muted); }
+.inner-page { padding-block:35px 55px; min-height:65vh; }
+.inner-reading { width:min(760px,100%); margin-left:0; }
+.page-heading { margin-bottom:30px; }
+.inner-page h1 { font-size:38px; letter-spacing:-1.4px; max-width:750px; margin-bottom:18px; }
+.page-heading p { max-width:650px; color:var(--muted); }
+.service-details { max-width:850px; }
+.service-detail { border-top:1px solid var(--border); padding-block:30px; display:flex; align-items:flex-start; gap:22px; }
+.service-detail>i { font-size:27px; color:var(--green); }
+.service-detail h2 { font-size:25px; margin-bottom:15px; }
+.service-detail p { color:var(--muted); }
+.contact-page .contact-grid { gap:65px; padding-top:15px; }
+.contact-page h1 { font-size:36px; }
+.footer nav { gap:18px; flex-wrap:wrap; }
+.footer { gap:22px; }
+@media(min-width:768px) and (max-width:1023px) { .desktop-nav { gap:14px; } nav a { font-size:12px; } .header-inner { gap:16px; } .header-cta { padding-inline:13px; gap:8px; } .home-work .project-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:767px) {
+  .profile-section { padding-top:16px; }
+  .profile-cover-frame { height:auto; aspect-ratio:16 / 9; }
+  .profile-cover { width:100%; height:auto; }
+  .profile-photo { width:120px; height:120px; border-width:4px; margin-top:-40px; margin-bottom:14px; }
+  .profile-identity h1 { font-size:30px; }
+  .profile-title { font-size:14px; margin-bottom:12px; }
+  .profile-introduction { font-size:14px; }
+  .profile-metadata { gap:8px 18px; }
+  .profile-actions .button { gap:10px; padding-inline:16px; }
+  .profile-identity { padding-bottom:28px; }
+  .reading-width { width:calc(100% - 40px); }
+  .inner-reading { width:100%; }
+  .profile-content { padding-block:25px; }
+  .profile-content h2 { font-size:24px; }
+  .home-work { padding-block:28px 32px; }
+  .home-work .project-grid { grid-template-columns:1fr; }
+  .home-work .section-intro { display:flex; flex-wrap:wrap; gap:8px 20px; }
+  .home-work h2 { font-size:27px; }
+  .contact-invitation { padding:23px; margin-bottom:35px; }
+  .contact-invitation h2 { font-size:25px; }
+  .inner-page { padding-block:25px 40px; }
+  .compact-profile { margin-bottom:27px; }
+  .inner-page h1 { font-size:32px; }
+  .service-detail { gap:14px; }
+  .service-detail h2 { font-size:23px; }
+  .contact-page .contact-grid { gap:32px; }
+  .contact-page h1 { font-size:32px; }
+}
