@@ -1,12 +1,10 @@
 import Image from 'next/image';
-import { site } from '@/data/site';
-import type { Project } from '@/data/site';
+import Link from 'next/link';
+import { site, type Project } from '@/data/site';
 import { Icon } from './icon';
-export function ProjectPreview({ project, index }: { project: Project; index: number }) {
-  return <article className={`project project-${project.format}`}>
-    <div className="project-image">{project.screenshot ? <Image src={project.screenshot.src} alt={project.screenshot.alt} fill sizes="(max-width: 767px) 100vw, 60vw" /> : <><div className="placeholder-top"><span>PROJECT {String(index + 1).padStart(2, '0')}</span><Icon name="ri-image-line" /></div><div className="screenshot-placeholder"><Icon name="ri-image-add-line" /><span>{site.ui.screenshot}</span><small>{site.ui.screenshotNote}</small></div><span className="placeholder-bottom">{site.ui.screenshotFooter}</span></>}</div>
-    <div className="project-heading"><h3>{project.name}</h3>{project.placeholder && <span className="content-label">{site.ui.contentPending}</span>}</div>
-    <p className="project-service">{project.service}</p><p className="project-summary">{project.summary}</p>
-    {project.detailUrl && <a className="text-link" href={project.detailUrl}>{site.ui.viewProject} <Icon name="ri-arrow-right-up-line" /></a>}
-  </article>;
+export function ProjectImage({ project, priority = false, large = false }: { project: Project; priority?: boolean; large?: boolean }) {
+  return <div className="project-image">{project.screenshot ? <Image src={project.screenshot.src} alt={project.screenshot.alt} width={project.screenshot.width} height={project.screenshot.height} sizes={large ? "(max-width: 1200px) calc(100vw - 48px), 1160px" : "(max-width: 767px) calc(100vw - 40px), (max-width: 1200px) 50vw, 580px"} priority={priority} /> : <div className="screenshot-placeholder"><Icon name="ri-image-line" /><span>{site.work.screenshotUnavailable}</span><small>{site.work.unavailableNote}</small></div>}</div>;
+}
+export function ProjectPreview({ project }: { project: Project }) {
+  return <article className="project"><Link href={`/work/${project.slug}`} className="project-cover-link" aria-label={`View ${project.name} project`}><ProjectImage project={project} /></Link><div className="project-heading"><h3><Link href={`/work/${project.slug}`}>{project.name}</Link></h3></div>{project.category && <p className="project-service">{project.category}</p>}<p className="project-summary">{project.summary}</p><Link className="text-link" href={`/work/${project.slug}`}>{site.ui.viewProject}<Icon name="ri-arrow-right-up-line" /></Link></article>;
 }
