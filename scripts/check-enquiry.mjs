@@ -1,0 +1,35 @@
+import ts from 'typescript';
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+function load(path, imports = {}) {
+  const loadedModule = { exports: {} };
+  const code = ts.transpileModule(fs.readFileSync(path, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText;
+  new Function('require', 'module', 'exports', code)(name => imports[name], loadedModule, loadedModule.exports);
+  return loadedModule.exports;
+}
+const { site } = load('src/data/site.ts');
+const { validateEnquiry, composeEnquiry, normaliseStoreUrl } = load('src/lib/enquiry.ts', { '@/data/site': { site } });
+const input = { name: "Ayo & O'Neil + Co", email: 'ayo+shop@example.com', store: 'example.com/products?a=1&b=2', service: 'Store redesign', description: "I'd like a new layout & navigation.\nProducts + collections." };
+const checked = validateEnquiry(input);
+assert.deepEqual(checked.errors, {});
+assert.equal(checked.values.store, 'https://example.com/products?a=1&b=2');
+const message = composeEnquiry(checked.values);
+const whatsapp = new URL(message.whatsapp);
+const email = new URL(message.email);
+assert.equal(whatsapp.origin + whatsapp.pathname, 'https://wa.me/2349071740352');
+assert.equal(whatsapp.searchParams.get('text'), message.body);
+assert.equal(email.pathname, 'adexexpert007@gmail.com');
+assert.equal(email.searchParams.get('subject'), `Shopify project enquiry — ${input.name}`);
+assert.equal(email.searchParams.get('body'), message.body);
+assert.ok(message.body.includes(input.description));
+assert.equal(Object.keys(validateEnquiry({ name: '', email: '', store: '', service: '', description: '' }).errors).length, 4);
+assert.ok(validateEnquiry({ ...input, email: 'invalid' }).errors.email);
+for (const store of ['javascript:alert(1)', 'ftp://example.com', 'https://user:pass@example.com', 'hello world', 'https://']) assert.throws(() => normaliseStoreUrl(store));
+assert.equal(normaliseStoreUrl(''), '');
+assert.equal(normaliseStoreUrl('http://example.com'), 'http://example.com/');
+const long = validateEnquiry({ ...input, description: '&+\n'.repeat(666) + 'ab' });
+assert.deepEqual(long.errors, {});
+assert.equal(new URL(composeEnquiry(long.values).whatsapp).searchParams.get('text'), composeEnquiry(long.values).body);
+assert.ok(validateEnquiry({ ...input, description: 'x'.repeat(2001) }).errors.description);
+assert.ok(validateEnquiry({ ...input, service: 'invented' }).errors.service);
+console.log('PASS enquiry validation, URL safety, limits and exact decoded WhatsApp/email contents');

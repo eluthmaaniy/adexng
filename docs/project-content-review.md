@@ -58,3 +58,7 @@ Inspection date: 2026-10-05. Owner supplied these five sites as past projects. N
 ## Owner confirmation needed for every project
 
 Confirm precise work scope, tasks performed by Adex, original objectives, delivery/launch dates, whether current screenshots reflect his delivered work, and permission to use client branding. Any future result needs attributable evidence and a time period. Faith Forged Designs also needs approved archived screenshots, displayed brand spelling, product category and factual story. Typed `contribution` and `results` fields remain empty and are not rendered.
+
+## Phase 3 presentation correction — 2026-10-05
+
+Faith Forged Designs remains confirmed past work supplied by the owner. It is now a name and external link under Other past work on `/work`, without a screenshot, story, product category or feature claims. It is excluded from generated project parameters and homepage features. `/work/faith-forged-designs` permanently redirects to `/work`. The inspection limitation above is retained internally. No fresh accessibility claim is made.

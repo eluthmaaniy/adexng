@@ -19,8 +19,8 @@ export function Header() {
   return <header className="header"><div className="container header-inner">
     <Link className="wordmark" href="/" aria-label="Adex homepage">{site.name}<span aria-hidden="true">.</span></Link>
     <nav className="desktop-nav" aria-label="Main navigation">{site.navigation.map(link => <Link key={link.href} href={link.href}>{link.label}</Link>)}</nav>
-    <a className="button header-cta" href={site.identity.whatsappUrl}>{site.ui.talk} <Icon name="ri-arrow-right-up-line" /></a>
+    <Link className="button header-cta" href="/#contact">{site.ui.talk} <Icon name="ri-arrow-right-up-line" /></Link>
     <button ref={button} className="menu-toggle" type="button" aria-expanded={open} aria-controls="mobile-navigation" aria-label={open ? 'Close navigation' : 'Open navigation'} onClick={() => setOpen(!open)}><Icon name={open ? 'ri-close-line' : 'ri-menu-line'} /></button>
-    <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation" hidden={!open}>{site.navigation.map(link => <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}<Icon name="ri-arrow-right-line" /></Link>)}<a href={site.identity.whatsappUrl} onClick={() => setOpen(false)}>{site.ui.talk}<Icon name="ri-arrow-right-up-line" /></a></nav>
+    <nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation" hidden={!open}>{site.navigation.map(link => <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}<Icon name="ri-arrow-right-line" /></Link>)}<Link href="/#contact" onClick={() => setOpen(false)}>{site.ui.talk}<Icon name="ri-arrow-right-up-line" /></Link></nav>
   </div></header>;
 }
