@@ -291,3 +291,29 @@ nav a[aria-current=page] { color:var(--green); text-decoration:underline; text-u
 .feedback-actions { display:flex; flex-wrap:wrap; gap:8px 25px; margin-top:8px; }
 .footer-credit { width:100%; align-items:center; }
 @media(max-width:767px) { .footer-credit { align-items:flex-start; } }
+/* Owner-supplied profile and category feedback. */
+.online-status { background:var(--pale-green); color:var(--green); padding:4px 11px; border-radius:999px; }
+.profile-rating i { color:#e6ac00; }
+.profile-introduction { max-width:650px; }
+.about-cta a { color:var(--green); font-weight:600; display:inline-flex; align-items:center; min-height:44px; }
+.skill-group h3 { display:flex; gap:9px; align-items:center; }
+.skill-group h3 i { color:var(--green); font-size:18px; }
+.skill-group:last-child { grid-column:auto; }
+.skill-group .skills-list { gap:8px 20px; }
+.credential-list li { position:relative; display:flex; gap:17px; align-items:flex-start; }
+.credential-node { width:28px; flex-shrink:0; background:white; position:relative; z-index:1; color:var(--green); font-size:22px; line-height:1.4; }
+.credential-chain li:not(:last-child)::after { content:''; position:absolute; left:12px; top:27px; bottom:-24px; border-left:1px solid var(--border); }
+.credential-chain li + li { margin-top:24px; }
+.credential-copy { min-width:0; }
+.credential-copy p { font-size:13px; margin:3px 0 0; }
+.credential-copy .credential-period { color:var(--muted); font-size:12px; }
+.review figcaption { margin-bottom:17px; }
+.review time { display:block; font-weight:400; color:var(--muted); font-size:12px; margin-top:4px; }
+.review .repeat-client { color:var(--green); font-size:11px; margin-top:6px; }
+.review-ratings { margin-top:20px; border-top:1px solid var(--border); padding-top:15px; }
+.review-rating-row { display:flex; flex-wrap:wrap; gap:6px 15px; align-items:center; justify-content:space-between; margin-bottom:6px; }
+.rating-category { font-size:12px; }
+.review-rating { gap:7px; margin-bottom:0; }
+.review-rating i { font-size:17px; }
+.review-star { width:17px; height:22px; }
+.review-service { color:var(--muted); font-size:12px; margin:13px 0 0; }

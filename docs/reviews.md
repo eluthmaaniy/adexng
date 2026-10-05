@@ -1,21 +1,24 @@
-# Publishing genuine client reviews
+# Owner-supplied client feedback
 
-No genuine reviews have been supplied. No review text is published. The homepage section shows a compact honest empty state; the navigation links to a short noindex empty state at `/reviews`, which is excluded from the sitemap.
+Twelve unique records were supplied; Greta Fernández is stored once. Eight records are approved for public presentation, without independent verification labels. Four attribution-pending records remain only in docs/review-attribution-pending.json and are not imported into application code:
 
-Add genuine feedback to the typed `testimonials` array in `src/data/site.ts`. Required fields:
+- Cameron Weber
+- Chloé Walsh
+- Saga García
+- Charlotte Christensen
 
-- `id`: unique stable identifier.
-- `clientDisplayName`: the client's approved public name.
-- `reviewText`: their feedback, preserving its meaning. Only light grammar edits.
-- `rating`: their actual numeric rating from 0 to 5, including decimal values. Never assign a default rating. Star fills reflect the supplied fraction; the rating also has a readable numeric label.
-- `genuineClientFeedback`: true only after the owner confirms the feedback is genuine.
-- `approvedForPublication`: true only after publication approval is confirmed.
-- Optional `storeName`: render only with `storeNameVerified: true`.
+The latest direct owner instruction replaced the other-person name in all four quotes with Adex. That text edit does not resolve the attachment's pending-attribution status. Do not publish these records until attribution is confirmed. Their quotes, names and ratings must stay out of rendered pages, client bundles and metadata.
 
-Keep source/permission evidence privately; do not put private client correspondence into the public content bundle. No client portraits are used.
+Public feedback keeps original supplied wording, country, absolute date and repeat-client flag. Only Quality of work and Communication ratings were supplied: show each category separately, never manufacture an overall per-review rating. Performance statements remain quotations, not portfolio results or independently established claims.
 
-Publishing the first approved review automatically enables the homepage section (maximum eight), the review listing and sitemap entry. The review page shows six reviews per page with normal, keyboard-accessible pagination; 30 reviews occupy five pages. Review pages use `/reviews` as their canonical URL. No aggregate-rating structured data is generated.
+Henry Müller's launch quote and Product listing optimization label, and Sienna Berg's TikTok ads quote and Store settings configuration label, do not align clearly. Their supplied service values are retained but not rendered. Pending records also contain service/quote mismatches; preserve the original labels internally and clarify before publication. Do not invent replacements.
 
-Run `node scripts/check-reviews.mjs` and visually check genuine content at mobile and desktop widths before publishing it. Test fixtures exist only in the test script; they are never site data.
+## Typed records
+Stable id, clientDisplayName, reviewText, categoryRatings (qualityOfWork and communication, each 0–5), date (YYYY-MM-DD), supplied country with countryConfirmed, optional service with serviceConfirmed, optional confirmed store, repeatClient, genuineClientFeedback, approvedForPublication and publicationStatus. Legacy overall rating is supported only when explicitly supplied; the current eight records have none. Confirm both genuine feedback and permission before adding records. Duplicate IDs and attribution-pending records are excluded by the publication filter.
 
-Optional country and service labels require `countryConfirmed` and `serviceConfirmed`; never infer them from a name. Store names require `storeNameVerified`. The collection has no fixed record cap. Homepage features the first eight publication-approved records; Reviews paginates six records at a time.
+Home shows up to eight approved records. Reviews shows six per page with accessible pagination and supports more than thirty records without component changes. Only published records count towards its visible total. Reviews is now indexable in production and is in the sitemap. Vercel preview protections remain in force. No aggregate-rating structured data is generated.
+
+## Aggregate pending
+The supplied distribution is 5:219, 4:13, 3:5, 2:2, 1:0. It totals 239 and yields approximately 4.88, conflicting with the supplied 4.8 summary. Neither aggregate/count is currently supported by the eight public records. Obtain the correct source/summary before enabling profile.aggregateRating. No distribution or verification badge is public.
+
+Run node scripts/check-reviews.mjs. Synthetic fixtures are test-only and never production records.

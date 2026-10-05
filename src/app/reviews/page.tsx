@@ -6,7 +6,7 @@ import { Header } from '@/components/header';
 import { Profile } from '@/components/profile';
 import { Footer } from '@/components/footer';
 import { Testimonials } from '@/components/testimonials';
-export function generateMetadata() { return publishedReviews.length ? pageMetadata('Client reviews | Adex', 'Read genuine client feedback about working with me on Shopify stores.', '/reviews') : { ...pageMetadata('Client feedback | Adex', 'Client feedback will be added here. Explore my Shopify work or contact me about your store.', '/reviews'), robots: { index: false, follow: !isPreview } }; }
+export function generateMetadata() { return publishedReviews.length ? pageMetadata('Client reviews | Adex', 'Read owner-supplied client feedback about Shopify design, store improvements and marketing support.', '/reviews') : { ...pageMetadata('Client feedback | Adex', 'Client feedback will be added here. Explore my Shopify work or contact me about your store.', '/reviews'), robots: { index: false, follow: !isPreview } }; }
 export default async function ReviewsPage({ searchParams }: { searchParams: Promise<{ page?: string }> }) {
   if (!publishedReviews.length) return <><a className="skip-link" href="#main">Skip to content</a><Header /><main id="main" className="container inner-page"><Profile /><div className="reading-width inner-reading"><h1>What my clients say</h1><p>Client feedback will be added here.</p><div className="profile-actions"><Link className="button" href="/work">View my work</Link><Link className="text-link" href="/contact">Contact me</Link></div></div></main><Footer /></>;
   const query = await searchParams;

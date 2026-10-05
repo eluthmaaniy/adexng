@@ -1,24 +1,9 @@
-# Profile facts and content checklist
+# Owner-supplied profile update — 2026-10-05
 
-Confirmed by owner: Nigeria, English, Africa/Lagos timezone, Upwork Academy as an education/training provider. No programme, degree, accreditation, attendance date or completion status is claimed.
+Confirmed: Nigeria, English, Africa/Lagos, all sixteen skill labels, Upwork Academy Cohort / Business and Customer Relations / Graduated 2023, and the five certificate records now in src/data/site.ts. Preserve supplied names/issuers/years without independent verification badges, invented credential IDs, current-validity claims or additional dates. The previous tentative recognition title has been removed.
 
-## Credentials awaiting confirmation
+“Online” is manually maintained owner-set availability, not automatically detected live presence. Edit profile.availability centrally; the dot is static under reduced-motion preferences.
 
-- Owner-supplied title: “Udemy newbie of the year”. Confirm the exact wording, issuer, and whether this is a course certificate or award. Supply a certificate image or verifiable URL if available. This is not currently published as an official Udemy award.
-- Proposed training areas: Shopify theme development, Ecommerce conversion optimisation, Google Ads, Meta Ads. These are proposed, not earned credentials. For each actually earned certificate supply exact title, issuer, confirmation of completion, optional date and verified link. Do not add proposed training to structured data.
+Aggregate rating is pending. The supplied summary is 4.8, while the distribution (219 five-star, 13 four-star, 5 three-star, 2 two-star, 0 one-star) totals 239 and averages 1166/239 = approximately 4.88. The eight public records do not establish either aggregate. profile.aggregateRating has pending status and a null value; its prepared yellow-star link remains hidden. Do not publish the disputed figure/count or aggregate-rating structured data.
 
-`profile.proposedTraining` keeps the proposed areas typed, separate from earned certifications. Certifications stays visible with “Certificate details will be added here.” until confirmed entries are supplied.
-
-## Skills awaiting owner confirmation
-
-Product listing, app integration, landing pages, conversion optimisation, email marketing, Meta Ads, Google Ads and ecommerce marketing are configurable with `confirmed: false`. Confirm that Adex offers each skill before publishing it; do not infer expertise from proposed training. Seven established Shopify/store-experience skills are published. Group descriptions are editable centrally. The marketing group remains an honest focus statement with no unconfirmed skill list.
-
-## Reviews
-
-Supply genuine client display name, stable ID, review text, actual rating out of five, confirmation it is genuine client feedback and explicit publication approval. Optional country, store and service require confirmation. Never infer a country from a client name. See reviews.md. No genuine reviews have been supplied.
-
-## Configuration
-
-Edit `profile` in `src/data/site.ts`. Africa/Lagos is explicitly configured; change the timezone and WAT label together if required. Availability is configurable, not live presence. Education/training and Certifications remain visible when empty. The supplied banner is shown intact; embedded numbers are not used as verified project results.
-
-Reviews is noindex and excluded from sitemap while empty. Faith Forged Designs remains link-only, with its former detail route redirected to Work. Main pushes can trigger the existing Vercel deployment; no hosting changes are needed.
+Remaining: resolve the aggregate/source discrepancy; confirm attribution of four pending reviews; clarify quote/service mismatches. See reviews.md. Certificate URLs or verification evidence may be added only if supplied; none are currently shown.

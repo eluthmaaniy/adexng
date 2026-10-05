@@ -15,7 +15,26 @@ const { Testimonials } = load('src/components/testimonials.tsx', { './icon': { I
 const { renderToStaticMarkup } = nodeRequire('react-dom/server');
 // Synthetic fixtures for tests only. Never added to published site content.
 const fixture = { id: 'test', clientDisplayName: 'Test fixture', reviewText: 'Test-only feedback & characters.', rating: 3.5, genuineClientFeedback: true, approvedForPublication: true, storeName: 'Unconfirmed test store' };
-assert.equal(data.publishedReviews.length, 0);
+assert.equal(data.publishedReviews.length, 8);
+assert.equal(data.publishedReviews.filter(r => r.clientDisplayName === 'Greta Fernández').length, 1);
+const pending = JSON.parse(fs.readFileSync('docs/review-attribution-pending.json','utf8'));
+assert.equal(pending.length,4);
+assert.equal(data.getPublishedReviews(pending).length,0);
+assert.ok(pending.every(r => !r.reviewText.includes('Sum'+'ar') && r.reviewText.includes('Adex')));
+assert.equal(data.profile.aggregateRating.status,'pending');
+assert.equal(data.profile.aggregateRating.value,null);
+const publicHtml = renderToStaticMarkup(Testimonials({ reviews: data.publishedReviews }));
+assert.equal((publicHtml.match(/class="review"/g)||[]).length,8);
+assert.equal((publicHtml.match(/Quality of work:/g)||[]).length,8);
+assert.equal((publicHtml.match(/Communication:/g)||[]).length,8);
+assert.ok(publicHtml.includes('Quality of work: 4 out of 5 stars'));
+assert.ok(publicHtml.includes('dateTime="2026-04-16"') || publicHtml.includes('datetime="2026-04-16"'));
+for(const review of pending) assert.ok(!publicHtml.includes(review.clientDisplayName));
+assert.ok(data.publishedReviews.every(r => r.rating === undefined));
+for (const name of ['Henry Müller','Sienna Berg']) { const review = data.publishedReviews.find(r=>r.clientDisplayName===name); assert.ok(!renderToStaticMarkup(Testimonials({reviews:[review]})).includes(review.service)); }
+assert.equal(data.profile.skillGroups.flatMap(g=>g.items).length,16);
+assert.equal(data.profile.certifications.length,5);
+assert.equal(data.profile.education[0].period,'Graduated 2023');
 assert.equal(data.site.navigation.some(link => link.href === '/reviews'), true);
 assert.equal(data.getPublishedReviews([{ ...fixture, approvedForPublication: false }]).length, 0);
 assert.equal(data.getPublishedReviews([{ ...fixture, genuineClientFeedback: false }]).length, 0);
@@ -70,7 +89,14 @@ const homeModule = load('src/app/page.tsx', {
 const homeHtml = renderToStaticMarkup(homeModule.default());
 assert.equal((homeHtml.match(/class="review"/g) || []).length, 8);
 assert.ok(homeHtml.includes('40 published reviews'));
-assert.equal(data.profile.aboutPreview.join(' ').split(/\s+/).length >= 120, true);
-assert.equal(data.profile.aboutPreview.join(' ').split(/\s+/).length <= 160, true);
+assert.equal(data.profile.aboutPreview.length, 2);
+assert.equal(data.profile.aboutCta, 'Have a store in mind? Let’s discuss it.');
 if (process.env.REVIEW_QA_OUTPUT) fs.writeFileSync(process.env.REVIEW_QA_OUTPUT, JSON.stringify({ eight: homeHtml, thirty: renderToStaticMarkup(Testimonials({ reviews: forty.slice(0,30) })) }));
 console.log('PASS eight actual homepage previews, 40-record capacity, optional fact gating and biography length');
+
+const categoryFixture = { ...fixture, rating: undefined, categoryRatings: { qualityOfWork: 4, communication: 5 } };
+assert.equal(data.getPublishedReviews([categoryFixture]).length,1);
+assert.equal(data.getPublishedReviews([{...categoryFixture,categoryRatings:{qualityOfWork:6,communication:5}}]).length,0);
+assert.equal(data.getPublishedReviews([{...categoryFixture,publicationStatus:'pending-attribution'}]).length,0);
+assert.equal(data.getPublishedReviews([fixture,fixture]).length,1);
+console.log('PASS eight supplied records, four internal pending records, category ratings, deduplication and confirmed profile facts');

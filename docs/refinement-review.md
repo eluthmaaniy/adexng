@@ -18,6 +18,6 @@ Updated real-content desktop/mobile screenshots of Home, About, Work and Reviews
 
 ## Content needed
 
-Exact title, issuer and certificate-versus-award clarification for “Udemy newbie of the year”; actual details for any earned certificates in the four proposed training areas; owner confirmation of each additional configured skill; genuine review text, client name, actual rating and publication approval, with optional confirmed country/store/service. See profile-content-checklist.md and reviews.md.
+Historical content needs have since been superseded by the owner-supplied profile and feedback update. See profile-content-checklist.md and reviews.md for current unresolved issues.
 
 No dependencies, secrets or hosting settings changed. Main push may trigger the existing Vercel workflow.

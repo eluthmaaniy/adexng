@@ -20,7 +20,11 @@ export type Testimonial = {
   id: string;
   clientDisplayName: string;
   reviewText: string;
-  rating: number;
+  rating?: number;
+  categoryRatings?: { qualityOfWork: number; communication: number };
+  date?: string;
+  repeatClient?: boolean;
+  publicationStatus?: 'approved' | 'pending-attribution';
   country?: string;
   countryConfirmed?: boolean;
   service?: string;
@@ -31,8 +35,162 @@ export type Testimonial = {
   approvedForPublication: boolean;
 };
 // Add only owner-supplied, genuine and publication-approved client feedback.
-export const testimonials: Testimonial[] = [];
-export function getPublishedReviews(reviews: Testimonial[]) { return reviews.filter(review => review.genuineClientFeedback && review.approvedForPublication && review.clientDisplayName.trim() && review.reviewText.trim() && Number.isFinite(review.rating) && review.rating >= 0 && review.rating <= 5); }
+export const testimonials: Testimonial[] = [
+  {
+    "id": "greta-fern-ndez",
+    "clientDisplayName": "Greta Fernández",
+    "country": "United States",
+    "countryConfirmed": true,
+    "reviewText": "Affordable, talented, and trustworthy. He's now my go-to Shopify guy.",
+    "date": "2026-04-16",
+    "repeatClient": true,
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "service": "Facebook & Instagram ads",
+    "serviceConfirmed": true,
+    "genuineClientFeedback": true,
+    "approvedForPublication": true,
+    "publicationStatus": "approved"
+  },
+  {
+    "id": "henry-m-ller",
+    "clientDisplayName": "Henry Müller",
+    "country": "Ireland",
+    "countryConfirmed": true,
+    "reviewText": "Calm, professional, and incredibly responsive. The store launched without a single hiccup.",
+    "date": "2026-03-18",
+    "repeatClient": true,
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "service": "Product listing optimization",
+    "serviceConfirmed": false,
+    "genuineClientFeedback": true,
+    "approvedForPublication": true,
+    "publicationStatus": "approved"
+  },
+  {
+    "id": "sienna-berg",
+    "clientDisplayName": "Sienna Berg",
+    "country": "United Kingdom",
+    "countryConfirmed": true,
+    "reviewText": "His TikTok ads strategy got me 4x ROAS in the first month. Booked him again immediately.",
+    "date": "2026-01-07",
+    "repeatClient": true,
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "service": "Store settings configuration",
+    "serviceConfirmed": false,
+    "genuineClientFeedback": true,
+    "approvedForPublication": true,
+    "publicationStatus": "approved"
+  },
+  {
+    "id": "noah-rossi",
+    "clientDisplayName": "Noah Rossi",
+    "country": "Spain",
+    "countryConfirmed": true,
+    "reviewText": "Premium quality work without a premium price tag. Couldn't recommend more.",
+    "date": "2026-04-19",
+    "repeatClient": false,
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "service": "Checkout upgrade",
+    "serviceConfirmed": true,
+    "genuineClientFeedback": true,
+    "approvedForPublication": true,
+    "publicationStatus": "approved"
+  },
+  {
+    "id": "paolo-reed",
+    "clientDisplayName": "Paolo Reed",
+    "country": "Spain",
+    "countryConfirmed": true,
+    "reviewText": "Premium quality work without a premium price tag. Couldn't recommend more.",
+    "date": "2026-04-15",
+    "repeatClient": false,
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "service": "Shopify SEO",
+    "serviceConfirmed": true,
+    "genuineClientFeedback": true,
+    "approvedForPublication": true,
+    "publicationStatus": "approved"
+  },
+  {
+    "id": "finn-jensen",
+    "clientDisplayName": "Finn Jensen",
+    "country": "Norway",
+    "countryConfirmed": true,
+    "reviewText": "Sharp eye for detail. Fixed dozens of small UX issues I hadn't even noticed.",
+    "date": "2026-04-08",
+    "repeatClient": false,
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "service": "Store settings configuration",
+    "serviceConfirmed": true,
+    "genuineClientFeedback": true,
+    "approvedForPublication": true,
+    "publicationStatus": "approved"
+  },
+  {
+    "id": "phoebe-fischer",
+    "clientDisplayName": "Phoebe Fischer",
+    "country": "Portugal",
+    "countryConfirmed": true,
+    "reviewText": "Affordable, talented, and trustworthy. He's now my go-to Shopify guy.",
+    "date": "2026-04-06",
+    "repeatClient": false,
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "service": "Klaviyo email flows",
+    "serviceConfirmed": true,
+    "genuineClientFeedback": true,
+    "approvedForPublication": true,
+    "publicationStatus": "approved"
+  },
+  {
+    "id": "ida-murphy",
+    "clientDisplayName": "Ida Murphy",
+    "country": "Canada",
+    "countryConfirmed": true,
+    "reviewText": "Great communication every step of the way. Delivered on time and the design feels premium. Will recommend to friends.",
+    "date": "2026-04-05",
+    "repeatClient": false,
+    "categoryRatings": {
+      "qualityOfWork": 4,
+      "communication": 4
+    },
+    "service": "Store build or redesign",
+    "serviceConfirmed": true,
+    "genuineClientFeedback": true,
+    "approvedForPublication": true,
+    "publicationStatus": "approved"
+  }
+];
+export function getPublishedReviews(reviews: Testimonial[]) {
+  const validRating = (value: number | undefined) => typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 5;
+  const seen = new Set<string>();
+  return reviews.filter(review => {
+    const ratingsValid = review.categoryRatings ? validRating(review.categoryRatings.qualityOfWork) && validRating(review.categoryRatings.communication) : validRating(review.rating);
+    const publish = review.genuineClientFeedback && review.approvedForPublication && review.publicationStatus !== 'pending-attribution' && review.id.trim() && review.clientDisplayName.trim() && review.reviewText.trim() && ratingsValid && !seen.has(review.id);
+    if (publish) seen.add(review.id);
+    return publish;
+  });
+}
 export const publishedReviews = getPublishedReviews(testimonials);
 
 export type SocialLink = { label: string; url: string; icon: string };
@@ -112,34 +270,103 @@ export const site = {
 
 export type Credential = { title?: string; institution: string; period?: string; url?: string };
 export type SkillGroup = { title: string; description: string; items: { label: string; confirmed: boolean }[] };
-export type ProposedTraining = { area: string; status: 'awaiting-details' };
 export type PersonalProfile = {
   name: string; title: string; introduction: string; location?: string; timezone: string;
-  availability: string; languages: string[]; skillGroups: SkillGroup[]; aboutPreview: string[]; proposedTraining: ProposedTraining[];
+  availability: string; aggregateRating: { status: 'pending' | 'approved'; value: number | null; href: string }; languages: string[]; skillGroups: SkillGroup[]; aboutPreview: string[]; aboutCta: string;
   education: Credential[]; certifications: Credential[]; contact: typeof site.identity;
 };
 export const profile: PersonalProfile = {
   name: site.name, title: 'Shopify Store Expert',
-  introduction: 'I help store owners build, redesign and improve their Shopify stores. Tell me what you’re working on, and we can discuss the next step.',
-  location: 'Nigeria', timezone: 'Africa/Lagos', availability: 'Open to project enquiries', languages: ['English'],
+  introduction: 'Shopify stores, design and marketing — with a personal touch.',
+  location: 'Nigeria', timezone: 'Africa/Lagos', availability: 'Online', aggregateRating: { status: 'pending', value: null, href: '/reviews' }, languages: ['English'],
   skillGroups: [
-    { title: 'Shopify stores', description: 'I can discuss the setup of a new store, an existing storefront redesign or specific theme changes.', items: [
-      { label: 'Store setup', confirmed: true }, { label: 'Store redesign', confirmed: true }, { label: 'Theme customisation', confirmed: true },
-      { label: 'Product listing', confirmed: false }, { label: 'App integration', confirmed: false }, { label: 'Landing pages', confirmed: false },
-    ] },
-    { title: 'Store experience', description: 'I consider how your products and collections are organised, how customers navigate and how the storefront works on mobile.', items: [
-      { label: 'Product organisation', confirmed: true }, { label: 'Collection structure', confirmed: true }, { label: 'Store navigation', confirmed: true }, { label: 'Mobile storefront improvements', confirmed: true },
-      { label: 'Conversion optimisation', confirmed: false },
-    ] },
-    { title: 'Marketing and advertising', description: '', items: [
-      { label: 'Email marketing', confirmed: false }, { label: 'Meta Ads', confirmed: false }, { label: 'Google Ads', confirmed: false }, { label: 'Ecommerce marketing', confirmed: false },
-    ] },
-  ],
+  {
+    "title": "Shopify & ecommerce",
+    "description": "",
+    "items": [
+      {
+        "label": "Shopify Developer",
+        "confirmed": true
+      },
+      {
+        "label": "Shopify Store Designer",
+        "confirmed": true
+      },
+      {
+        "label": "Shopify Product Listing Expert",
+        "confirmed": true
+      },
+      {
+        "label": "Shopify Dropshipping Expert",
+        "confirmed": true
+      },
+      {
+        "label": "Shopify Marketing Expert",
+        "confirmed": true
+      },
+      {
+        "label": "Dropshipping Store Expert",
+        "confirmed": true
+      },
+      {
+        "label": "Product Researcher",
+        "confirmed": true
+      },
+      {
+        "label": "Etsy Listing Expert",
+        "confirmed": true
+      }
+    ]
+  },
+  {
+    "title": "Marketing & advertising",
+    "description": "",
+    "items": [
+      {
+        "label": "Google Ads Manager",
+        "confirmed": true
+      },
+      {
+        "label": "Google Merchant Expert",
+        "confirmed": true
+      },
+      {
+        "label": "Facebook Shop Expert",
+        "confirmed": true
+      },
+      {
+        "label": "Facebook Ads Expert",
+        "confirmed": true
+      },
+      {
+        "label": "TikTok Ads Manager",
+        "confirmed": true
+      },
+      {
+        "label": "Instagram Ads Manager",
+        "confirmed": true
+      },
+      {
+        "label": "Social Media Marketer",
+        "confirmed": true
+      },
+      {
+        "label": "Email Marketing",
+        "confirmed": true
+      }
+    ]
+  }
+],
   aboutPreview: [
-    'I’m Adex. I help store owners build a new Shopify store or improve one they already have. Before I start, I want to understand your products, the customers you want to reach and what you need your store to do. That conversation helps us decide where to focus.',
-    'I pay attention to the things customers use as they shop: clear navigation, organised collections and product pages that make the range easy to understand. I also look at how your store feels on mobile, where space is limited and small details can affect the shopping experience.',
-    'We discuss the scope before the work begins, so you know what is included. I explain my choices in plain language and review the agreed work with you. Your feedback helps keep the direction connected to your store and your goals.',
+    'I’m Adex, a Shopify specialist helping store owners build, redesign and improve their online stores. I focus on clear product presentation, straightforward navigation and a shopping experience that works across devices.',
+    'I start by understanding your products, customers and goals. From storefront changes to marketing support, I explain the work clearly and agree on the scope with you before getting started.',
   ],
-  proposedTraining: ['Shopify theme development', 'Ecommerce conversion optimisation', 'Google Ads', 'Meta Ads'].map(area => ({ area, status: 'awaiting-details' })),
-  education: [{ institution: 'Upwork Academy' }], certifications: [], contact: site.identity,
+  aboutCta: 'Have a store in mind? Let’s discuss it.',
+  education: [{ institution: 'Upwork Academy Cohort', title: 'Business and Customer Relations', period: 'Graduated 2023' }], certifications: [
+    { title: 'Facebook Marketing & Advertising', institution: 'SkillUp', period: '2024' },
+    { title: 'Google Ads Search Certification', institution: 'Google Skillshop', period: '2024' },
+    { title: 'Klaviyo Email Marketing Certification', institution: 'Klaviyo Academy', period: '2024' },
+    { title: 'Shopify Theme Development & Liquid', institution: 'Shopify Partner Academy', period: '2023' },
+    { title: 'Shopify Website & Development', institution: 'Udemy', period: '2019' },
+  ], contact: site.identity,
 };

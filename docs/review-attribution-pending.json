@@ -1,0 +1,74 @@
+[
+  {
+    "id": "cameron-weber",
+    "clientDisplayName": "Cameron Weber",
+    "country": "Spain",
+    "countryConfirmed": true,
+    "reviewText": "Beautiful theme customization. My store finally matches my brand identity. Thank you, Adex!",
+    "date": "2026-03-15",
+    "repeatClient": true,
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "service": "Product listing optimization",
+    "serviceConfirmed": false,
+    "genuineClientFeedback": true,
+    "approvedForPublication": false,
+    "publicationStatus": "pending-attribution"
+  },
+  {
+    "id": "chlo-walsh",
+    "clientDisplayName": "Chloé Walsh",
+    "country": "United States",
+    "countryConfirmed": true,
+    "reviewText": "Adex built my beauty store and helped me set up email flows. Sales started coming in days after launch. Worth every penny.",
+    "date": "2026-01-05",
+    "repeatClient": true,
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "service": "Checkout upgrade",
+    "serviceConfirmed": false,
+    "genuineClientFeedback": true,
+    "approvedForPublication": false,
+    "publicationStatus": "pending-attribution"
+  },
+  {
+    "id": "saga-garc-a",
+    "clientDisplayName": "Saga García",
+    "country": "France",
+    "countryConfirmed": true,
+    "reviewText": "Adex fixed checkout issues that two other developers couldn't figure out. Lifesaver.",
+    "date": "2026-04-15",
+    "repeatClient": false,
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "service": "Store settings configuration",
+    "serviceConfirmed": false,
+    "genuineClientFeedback": true,
+    "approvedForPublication": false,
+    "publicationStatus": "pending-attribution"
+  },
+  {
+    "id": "charlotte-christensen",
+    "clientDisplayName": "Charlotte Christensen",
+    "country": "Italy",
+    "countryConfirmed": true,
+    "reviewText": "Beautiful theme customization. My store finally matches my brand identity. Thank you, Adex!",
+    "date": "2026-04-13",
+    "repeatClient": false,
+    "categoryRatings": {
+      "qualityOfWork": 5,
+      "communication": 5
+    },
+    "service": "Google Merchant & Ads",
+    "serviceConfirmed": false,
+    "genuineClientFeedback": true,
+    "approvedForPublication": false,
+    "publicationStatus": "pending-attribution"
+  }
+]
