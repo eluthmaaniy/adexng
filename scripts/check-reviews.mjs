@@ -51,3 +51,26 @@ assert.ok(secondPage.includes('href="/reviews?page=3"'));
 assert.ok(secondPage.includes('Previous reviews'));
 await assert.rejects(reviewsModule.default({ searchParams: Promise.resolve({ page: '6' }) }), /404/);
 console.log('PASS review route pagination with isolated fixtures (no published test data)');
+const forty = data.getPublishedReviews(Array.from({ length: 40 }, (_, id) => ({ ...fixture, id: `fixture-${id}`, rating: id % 6, reviewText: id % 2 ? 'Short test-only quote.' : 'Longer test-only text for layout verification. '.repeat(8) })));
+assert.equal(forty.length, 40);
+const unconfirmed = { ...fixture, country: 'Test country', service: 'Test service' };
+const hidden = renderToStaticMarkup(Testimonials({ reviews: [unconfirmed] }));
+assert.ok(!hidden.includes('Test country') && !hidden.includes('Test service'));
+const confirmed = renderToStaticMarkup(Testimonials({ reviews: [{ ...unconfirmed, countryConfirmed: true, serviceConfirmed: true }] }));
+assert.ok(confirmed.includes('Test country') && confirmed.includes('Test service'));
+const homeModule = load('src/app/page.tsx', {
+  '@/data/site': { ...data, publishedReviews: forty },
+  '@/components/header': { Header: () => null }, '@/components/footer': { Footer: () => null },
+  '@/components/profile': { Profile: () => null, Skills: () => null, Credentials: () => null, ContactInvitation: () => null },
+  '@/components/legacy-fragments': { LegacyFragments: () => null },
+  '@/components/project-preview': { ProjectPreview: () => null },
+  '@/components/testimonials': { Testimonials }, '@/components/icon': { Icon },
+  'next/link': { __esModule: true, default: props => React.createElement('a', props) },
+});
+const homeHtml = renderToStaticMarkup(homeModule.default());
+assert.equal((homeHtml.match(/class="review"/g) || []).length, 8);
+assert.ok(homeHtml.includes('40 published reviews'));
+assert.equal(data.profile.aboutPreview.join(' ').split(/\s+/).length >= 120, true);
+assert.equal(data.profile.aboutPreview.join(' ').split(/\s+/).length <= 160, true);
+if (process.env.REVIEW_QA_OUTPUT) fs.writeFileSync(process.env.REVIEW_QA_OUTPUT, JSON.stringify({ eight: homeHtml, thirty: renderToStaticMarkup(Testimonials({ reviews: forty.slice(0,30) })) }));
+console.log('PASS eight actual homepage previews, 40-record capacity, optional fact gating and biography length');

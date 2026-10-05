@@ -21,6 +21,10 @@ export type Testimonial = {
   clientDisplayName: string;
   reviewText: string;
   rating: number;
+  country?: string;
+  countryConfirmed?: boolean;
+  service?: string;
+  serviceConfirmed?: boolean;
   storeName?: string;
   storeNameVerified?: boolean;
   genuineClientFeedback: boolean;
@@ -53,28 +57,28 @@ export const site = {
   projects: [
     {
       id: 'zenrozone', slug: 'zenrozone', name: 'ZenroZone', category: 'Furniture & home essentials', featured: true, liveUrl: 'https://zenrozone.com/',
-      shortSummary: 'Furniture, décor and everyday home essentials, presented through room imagery, collection links and product previews. Detailed specifications help shoppers compare items for their homes.',
+      shortSummary: 'Furniture and home essentials presented through room imagery, organised collections and product previews, with specifications that help shoppers compare items.',
       summary: 'ZenroZone brings furniture, décor, lighting and practical home essentials into one catalogue for people furnishing or refreshing their homes. The storefront opens with room imagery and collection links, then introduces furniture, tools and décor in distinct groups. Product previews show prices and quick-view options, while the Dining Chairs page pairs an image gallery with dimensions, material details and shipping information to help shoppers compare the item.',
       features: ['Room-focused homepage imagery and collection links', 'Furniture, tools and décor collection groups', 'Priced product cards with quick-view controls', 'Dining Chairs gallery, specifications and shipping information'],
       screenshot: { src: '/projects/zenrozone-homepage.webp', alt: 'ZenroZone homepage showing furniture imagery and its home essentials introduction', width: 1440, height: 990 }, contribution: null, results: [],
     },
     {
       id: 'accesorioscar', slug: 'accesorioscar', name: 'Accesorioscar', category: 'Car accessories & detailing', featured: true, liveUrl: 'https://accesorioscar.com/',
-      shortSummary: 'Car-care products and motoring accessories for Spanish-speaking shoppers. Category navigation, popular products and collection filters help visitors browse equipment, detailing supplies and interior technology.',
+      shortSummary: 'Car-care products and accessories for Spanish-speaking shoppers, with clear category navigation, priced product previews and filters for browsing the range.',
       summary: 'Accesorioscar presents car-care products, interior technology and emergency accessories to Spanish-speaking drivers and motoring enthusiasts. A vehicle-led homepage points shoppers towards bundles and product categories, with popular items shown alongside prices. The detailing collection groups cleaning and polishing equipment in a product grid, with availability and price filters, sorting controls and product imagery. Delivery and returns information is surfaced near the navigation to support browsing decisions.',
       features: ['Spanish-language category navigation', 'Vehicle-led hero with bundle and catalogue links', 'Popular-product cards with visible prices', 'Detailing collection with availability, price and sorting controls'],
       screenshot: { src: '/projects/accesorioscar-homepage.webp', alt: 'Accesorioscar homepage featuring a car and Spanish-language shopping navigation', width: 1440, height: 990 }, contribution: null, results: [],
     },
     {
       id: 'zen-active', slug: 'zen-active', name: 'Zen Active', category: 'Wellness, nutrition & active living', featured: true, liveUrl: 'https://zenactive.store/',
-      shortSummary: 'Nutrition, wellness and active-living products presented through lifestyle photography and clear category links. A filtered catalogue helps shoppers browse supplements and exercise equipment.',
+      shortSummary: 'Wellness and active-living products presented through lifestyle imagery and category links, with catalogue filters for browsing supplements and exercise equipment.',
       summary: 'Zen Active presents nutrition, wellness and active-living products for shoppers building an everyday wellness routine. Its homepage uses lifestyle imagery and routes into NeoLife, vitamins and fitness categories, alongside an explanation that the store operates independently. The catalogue brings supplements and exercise equipment into a priced product grid, with availability and price filters, sorting and visible stock status. Search and cart links remain available in the main navigation.',
       features: ['Lifestyle hero and category-led product discovery', 'Separate NeoLife, nutrition and fitness collection links', 'Catalogue filters, sorting and visible stock status', 'Search and cart navigation'],
       screenshot: { src: '/projects/zen-active-homepage.webp', alt: 'Zen Active homepage with wellness messaging, green styling and lifestyle photography', width: 1440, height: 990 }, contribution: null, results: [],
     },
     {
       id: 'flex-rack', slug: 'flex-rack', name: 'Flex Rack', category: 'Kitchen tools & appliances', featured: false, liveUrl: 'https://flexrack.net/',
-      shortSummary: 'Kitchen tools and appliances presented through product slides, collection groups and bundles. Catalogue filters, prices and quick-view controls support comparison across the range.',
+      shortSummary: 'Kitchen tools and appliances presented through product slides, collections and bundles, with catalogue filters and quick-view controls to support comparison.',
       summary: 'Flex Rack focuses on kitchen tools and appliances for people equipping or updating their home kitchens. Large homepage slides introduce everyday cooking products, followed by collection groups and a bundle-shopping section. The catalogue presents appliances such as pressure cookers and air fryers with prices, product options and quick-view controls. Availability and price filters, sorting and grid-density choices give shoppers several ways to narrow and compare the range.',
       features: ['Kitchen-focused homepage slideshow', 'Appliance collection groups and bundle-shopping section', 'Catalogue availability and price filters with sorting', 'Priced product cards, options and quick-view controls'],
       screenshot: { src: '/projects/flex-rack-homepage.webp', alt: 'Flex Rack homepage featuring everyday kitchen appliances and a shop link', width: 1440, height: 990 }, contribution: null, results: [],
@@ -101,21 +105,41 @@ export const site = {
     { question: 'How much will my project cost?', answer: 'The cost depends on the work your store needs. I’ll discuss your project with you before we agree on scope and pricing.' },
     { question: 'Can I contact you before choosing a service?', answer: 'Yes. Choose “Not sure yet” in the enquiry, or contact me directly. Tell me about your store and we can discuss where to start.' },
   ] },
-  footer: { specialism: 'Shopify stores, built with care.' },
+  footer: { specialism: 'Shopify stores, built with care.', builder: { name: 'Eltemur Zentra Studio', url: 'https://eltemur.com/' } },
   socials: [{ label: 'Email', url: 'mailto:adexexpert007@gmail.com', icon: 'ri-mail-line' }, { label: 'Instagram', url: 'https://www.instagram.com/adex7.77/', icon: 'ri-instagram-line' }] satisfies SocialLink[],
   testimonials,
 };
 
-export type Credential = { title: string; institution: string; period?: string; url?: string };
+export type Credential = { title?: string; institution: string; period?: string; url?: string };
+export type SkillGroup = { title: string; description: string; items: { label: string; confirmed: boolean }[] };
+export type ProposedTraining = { area: string; status: 'awaiting-details' };
 export type PersonalProfile = {
   name: string; title: string; introduction: string; location?: string; timezone: string;
-  availability: string; languages: string[]; skills: string[];
+  availability: string; languages: string[]; skillGroups: SkillGroup[]; aboutPreview: string[]; proposedTraining: ProposedTraining[];
   education: Credential[]; certifications: Credential[]; contact: typeof site.identity;
 };
 export const profile: PersonalProfile = {
   name: site.name, title: 'Shopify Store Expert',
   introduction: 'I help store owners build, redesign and improve their Shopify stores. Tell me what you’re working on, and we can discuss the next step.',
-  timezone: 'Africa/Lagos', availability: 'Open to project enquiries', languages: [],
-  skills: ['Shopify store setup', 'Store redesign', 'Theme customisation', 'Product organisation', 'Store navigation', 'Mobile storefront improvements'],
-  education: [], certifications: [], contact: site.identity,
+  location: 'Nigeria', timezone: 'Africa/Lagos', availability: 'Open to project enquiries', languages: ['English'],
+  skillGroups: [
+    { title: 'Shopify stores', description: 'I can discuss the setup of a new store, an existing storefront redesign or specific theme changes.', items: [
+      { label: 'Store setup', confirmed: true }, { label: 'Store redesign', confirmed: true }, { label: 'Theme customisation', confirmed: true },
+      { label: 'Product listing', confirmed: false }, { label: 'App integration', confirmed: false }, { label: 'Landing pages', confirmed: false },
+    ] },
+    { title: 'Store experience', description: 'I consider how your products and collections are organised, how customers navigate and how the storefront works on mobile.', items: [
+      { label: 'Product organisation', confirmed: true }, { label: 'Collection structure', confirmed: true }, { label: 'Store navigation', confirmed: true }, { label: 'Mobile storefront improvements', confirmed: true },
+      { label: 'Conversion optimisation', confirmed: false },
+    ] },
+    { title: 'Marketing and advertising', description: '', items: [
+      { label: 'Email marketing', confirmed: false }, { label: 'Meta Ads', confirmed: false }, { label: 'Google Ads', confirmed: false }, { label: 'Ecommerce marketing', confirmed: false },
+    ] },
+  ],
+  aboutPreview: [
+    'I’m Adex. I help store owners build a new Shopify store or improve one they already have. Before I start, I want to understand your products, the customers you want to reach and what you need your store to do. That conversation helps us decide where to focus.',
+    'I pay attention to the things customers use as they shop: clear navigation, organised collections and product pages that make the range easy to understand. I also look at how your store feels on mobile, where space is limited and small details can affect the shopping experience.',
+    'We discuss the scope before the work begins, so you know what is included. I explain my choices in plain language and review the agreed work with you. Your feedback helps keep the direction connected to your store and your goals.',
+  ],
+  proposedTraining: ['Shopify theme development', 'Ecommerce conversion optimisation', 'Google Ads', 'Meta Ads'].map(area => ({ area, status: 'awaiting-details' })),
+  education: [{ institution: 'Upwork Academy' }], certifications: [], contact: site.identity,
 };

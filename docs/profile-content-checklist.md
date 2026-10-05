@@ -1,17 +1,24 @@
-# Personal profile content checklist
+# Profile facts and content checklist
 
-The structural correction uses only the established Shopify service scope. Confirm before adding:
+Confirmed by owner: Nigeria, English, Africa/Lagos timezone, Upwork Academy as an education/training provider. No programme, degree, accreditation, attendance date or completion status is claimed.
 
-- Location (city/country, with permission to publish). No city inferred from phone number.
-- Languages and any proficiency labels.
-- Education: title, institution, optional period and verified link.
-- Certifications: exact qualification, issuer, optional date and verified link.
-- Any additional biography facts or expertise.
-- Genuine reviews and publication approval, as documented in reviews.md.
+## Credentials awaiting confirmation
 
-Edit `profile` in `src/data/site.ts`. Empty credential arrays and unset location/languages stay hidden. Africa/Lagos is the explicitly requested timezone; change `profile.timezone` if necessary, and update the visible WAT label in LocalTime when changing zones. Availability is the requested configurable “Open to project enquiries”, not live presence.
+- Owner-supplied title: “Udemy newbie of the year”. Confirm the exact wording, issuer, and whether this is a course certificate or award. Supply a certificate image or verifiable URL if available. This is not currently published as an official Udemy award.
+- Proposed training areas: Shopify theme development, Ecommerce conversion optimisation, Google Ads, Meta Ads. These are proposed, not earned credentials. For each actually earned certificate supply exact title, issuer, confirmation of completion, optional date and verified link. Do not add proposed training to structured data.
 
-The supplied banner is displayed intact as personal brand artwork. Its embedded numbers are not used as project results or structured-data claims.
+`profile.proposedTraining` keeps the proposed areas typed, separate from earned certifications. Certifications stays visible with “Certificate details will be added here.” until confirmed entries are supplied.
 
-## Routes
-Home, About, Services, Work, Reviews and Contact have distinct routes. Empty Reviews is visible in navigation, returns 200, is noindex and is excluded from sitemap. Approved reviews enable its publication metadata and pagination. Faith Forged Designs remains link-only and its former detail route redirects to Work. Old home section bookmarks redirect client-side to the corresponding route.
+## Skills awaiting owner confirmation
+
+Product listing, app integration, landing pages, conversion optimisation, email marketing, Meta Ads, Google Ads and ecommerce marketing are configurable with `confirmed: false`. Confirm that Adex offers each skill before publishing it; do not infer expertise from proposed training. Seven established Shopify/store-experience skills are published. Group descriptions are editable centrally. The marketing group remains an honest focus statement with no unconfirmed skill list.
+
+## Reviews
+
+Supply genuine client display name, stable ID, review text, actual rating out of five, confirmation it is genuine client feedback and explicit publication approval. Optional country, store and service require confirmation. Never infer a country from a client name. See reviews.md. No genuine reviews have been supplied.
+
+## Configuration
+
+Edit `profile` in `src/data/site.ts`. Africa/Lagos is explicitly configured; change the timezone and WAT label together if required. Availability is configurable, not live presence. Education/training and Certifications remain visible when empty. The supplied banner is shown intact; embedded numbers are not used as verified project results.
+
+Reviews is noindex and excluded from sitemap while empty. Faith Forged Designs remains link-only, with its former detail route redirected to Work. Main pushes can trigger the existing Vercel deployment; no hosting changes are needed.

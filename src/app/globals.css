@@ -269,3 +269,25 @@ nav a[aria-current=page] { color:var(--green); text-decoration:underline; text-u
   .contact-page .contact-grid { gap:32px; }
   .contact-page h1 { font-size:32px; }
 }
+/* Profile refinement: grouped skills, honest empty sections and storefront frames. */
+.skill-groups { display:grid; grid-template-columns:1fr 1.25fr; gap:24px 35px; }
+.skill-group:last-child { grid-column:1 / -1; }
+.skill-group h3 { font-size:15px; letter-spacing:0; margin-bottom:12px; }
+.skill-group .skills-list { gap:6px 20px; }
+.section-empty,.review-count { color:var(--muted); font-size:14px; margin:0; }
+.skill-groups-full { grid-template-columns:1fr; gap:25px; }
+.about-metadata { display:flex; gap:18px; color:var(--muted); font-size:13px; margin-bottom:18px; }
+.project-image { aspect-ratio:auto; display:block; }
+.browser-strip { display:flex; align-items:center; gap:5px; height:22px; padding-inline:10px; background:#f5f6f5; border-bottom:1px solid var(--border); }
+.browser-strip span { width:5px; height:5px; border-radius:50%; background:#abb3ad; }
+.store-screenshot { aspect-ratio:16 / 11; overflow:hidden; }
+.store-screenshot img { width:100%; height:100%; object-fit:contain; object-position:top; }
+.reviews-grid { align-items:start; grid-template-columns:repeat(2,minmax(0,1fr)); }
+.review blockquote p { font-size:15px; line-height:1.8; }
+.footer-credit { flex-basis:100%; display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px 25px; border-top:1px solid #396453; padding-top:17px; }
+.footer-credit p { margin:0; font-size:12px; }
+.footer-credit a { text-decoration:underline; text-underline-offset:4px; display:inline-flex; align-items:center; min-height:44px; }
+@media(max-width:767px) { .skill-groups,.reviews-grid { grid-template-columns:1fr; } .skill-groups { gap:22px; } .footer-credit { flex-direction:column; gap:3px; } }
+.feedback-actions { display:flex; flex-wrap:wrap; gap:8px 25px; margin-top:8px; }
+.footer-credit { width:100%; align-items:center; }
+@media(max-width:767px) { .footer-credit { align-items:flex-start; } }

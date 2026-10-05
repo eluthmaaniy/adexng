@@ -80,3 +80,9 @@ Local brand assets are committed, so no Python/font tools are required for deplo
 ## Personal profile navigation
 
 The homepage is a compact profile. Detailed content lives at `/about`, `/services`, `/work`, `/reviews` and `/contact`. Service links accept a validated `service` query parameter for the enquiry composer. Empty Reviews is a short noindex page linked from navigation and excluded from sitemap; this supersedes the earlier hidden/404 review behaviour. See `docs/profile-content-checklist.md` for missing factual details. Existing Vercel import settings remain unchanged. A main push may trigger the connected automatic deployment; no separate deployment is created.
+
+## Profile refinement
+
+Nigeria and English are confirmed profile details. Upwork Academy is listed only as an education/training provider. Certifications and client feedback remain visible with honest empty states. Unconfirmed certificate titles, proposed training and additional skills stay out of public claims; see `docs/profile-content-checklist.md`. Approved reviews automatically replace the empty state, with up to eight on Home and six per page on Reviews.
+
+Copyright receives a server-rendered year, then synchronises with Africa/Lagos time after hydration, once per minute and on window focus. This corrects an older cached static page and updates a tab left open across New Year. Browser-window strips around screenshots are decorative.
